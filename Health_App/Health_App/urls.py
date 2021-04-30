@@ -20,4 +20,7 @@ from Health_App import views
 urlpatterns = [
     path('', views.index, name = 'index'),
     path('admin/', admin.site.urls),
+    path('heart_pred', views.heart_pred, name='heart'),
+    path('liver_pred', views.liver_pred, name='liver'),
+    path('stroke_pred', views.stroke_pred, name='stroke'),
 ]
