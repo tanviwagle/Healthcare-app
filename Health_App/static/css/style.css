@@ -16,7 +16,9 @@ body {
 a {
   -webkit-transition: .3s all ease;
   -o-transition: .3s all ease;
-  transition: .3s all ease; }
+  transition: .3s all ease;
+  color:rgba(19, 22, 182, 0.9)
+ }
   a:hover {
     text-decoration: none; }
 
@@ -769,7 +771,7 @@ a {
     background: #343a40;
     color: #fff;
     border: 1px solid transparent; }
-
+/* 
 #slider-range {
   height: 8px; }
   #slider-range .ui-slider-handle {
@@ -781,7 +783,7 @@ a {
     #slider-range .ui-slider-handle:focus, #slider-range .ui-slider-handle:active {
       outline: none; }
   #slider-range .ui-slider-range {
-    background-color: #51eaea; }
+    background-color: #51eaea; } */
 
 .color-item .color {
   width: 14px;
