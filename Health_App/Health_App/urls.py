@@ -23,5 +23,6 @@ urlpatterns = [
     path('heart_pred', views.heart_pred, name='heart'),
     path('liver_pred', views.liver_pred, name='liver'),
     path('stroke_pred', views.stroke_pred, name='stroke'),
-    path('result', views.heart_disease_result, name='result'),
+    path('heart_disease_result', views.heart_disease_result, name='heart_disease_result'),
+    path('brain_stroke_result', views.brain_stroke_result, name='brain_stroke_result'),
 ]

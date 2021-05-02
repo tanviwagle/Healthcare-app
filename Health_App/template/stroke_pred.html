@@ -76,10 +76,30 @@
     <!-- Jumbotron -->
     <div class="jumbotron">
       <div class="container">
-        <h2 style="color: darkslategray;">Want to predict if you have disease? <a style="color:blue" href = "#"><u>Click Here</u></a></h2>
+        <h2 style="color: darkslategray;">Want to predict if you have brain stroke disease? <a style="color:blue" href = "#" data-toggle="modal" data-target="#pred_modal"><u>Click Here</u></a></h2>
       </div>
     </div>
     <!-- Jumbotron end -->
+
+    <div class="container">
+      {% if result is not None %}
+        {% if "don't" in result %}
+          <div class='alert alert-success alert-dismissible text-center'>
+            <h4 class="alert-heading">Predictions</h4>
+            <a href='#' class='close' data-dismiss='alert' aria-label='close'>&times;</a>
+            <strong>{{ result }}</strong>
+          </div>    
+        {% endif %}
+        {% if "don't" not in result %}
+          <div class='alert alert-danger alert-dismissible text-center'>
+            <h4 class="alert-heading">Predictions</h4>
+            <a href='#' class='close' data-dismiss='alert' aria-label='close'>&times;</a>
+            <strong>{{ result }}</strong>
+          </div>    
+        {% endif %}
+      {% endif %}
+    </div>
+    
 
     <div class="container">
       <h3 style="color: black;">Stats</h3>
@@ -96,7 +116,123 @@
       </div>
     </div>
 
+<!-- Stroke Disease Modal -->
+<div class="modal fade bottom" id="pred_modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+aria-hidden="true">
+<div class="modal-dialog modal-dialog-scrollable modal-full-height modal-bottom" role="document">
 
+
+  <div class="modal-content">
+    <div class="modal-header bg-danger">
+      <h4 class="modal-title w-100" id="myModalLabel" style="color: floralwhite;">Brain Stroke Prediction</h4>
+      <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <div class="modal-body">
+      <form action="{% url 'brain_stroke_result' %}" class="form-horizontal" id = "pred_form" autocomplete="off">
+        {% csrf_token %}
+        
+        <div class="row">
+          <div class="col-md-4 col-sm-10">
+            <table cellpadding = '10'>
+              <tr>
+                <td>Gender:</td>
+                <td><input type="text" name="gender" list="gender" placeholder="Select gender" required></td>
+                <datalist id="gender">
+                  <option value="Female"></option>
+                  <option value="Male"></option>
+                </datalist>
+              </tr>
+              <tr>
+                <td>Age:</td>
+                <td><input type="number" name="age" placeholder="Enter Age" required></td>
+              </tr>
+              <tr>
+                <td>Have Hypertension? </td>
+                <td><input type="text" name="hypertension" list="hypertension" placeholder="Select hypertension status" required></td>
+                <datalist id="hypertension">
+                  <option value="Yes"></option>
+                  <option value="No"></option>
+                </datalist>
+              </tr>
+            </table>
+          </div>
+          <div class="col-md-4 col-sm-10">
+            <table cellpadding = '10'>
+              <tr>
+                <td>Have Heart Disease? </td>
+                <td><input type="text" name="heart_dis" placeholder="Select Heart Disease status" list="heart_dis" required></td>
+                <datalist id="heart_dis">
+                  <option value="Yes"></option>
+                  <option value="No"></option>
+                </datalist>
+              </tr>
+              <tr>
+                <td>Ever Married?</td>
+                <td><input type="text" name="married" placeholder="Select marriage status" list="married" required></td>
+                <datalist id="married">
+                  <option value="Yes"></option>
+                  <option value="No"></option>
+                </datalist>
+              </tr>
+              <tr>
+                <td>Work Type: </td>
+                <td><input type="text" name="work_type" placeholder="Select Work Type" list="work_type" required></td>
+                <datalist id="work_type">
+                  <option value="Private"></option>
+                  <option value="Self-employed"></option>
+                  <option value="Govt_job"></option>
+                  <option value="children"></option>
+                  <option value="Never_worked"></option>
+                </datalist>
+              </tr>
+            </table>
+          </div>
+          <div class="col-md-4 col-sm-4">
+            <table cellpadding='10'>
+              <tr>
+                <td>Residence Type: </td>
+                <td><input type="text" name="res_type" placeholder="Select Residence Type" list="res_type" required></td>
+                <datalist id="res_type">
+                  <option value="Urban"></option>
+                  <option value="Rural"></option>
+                </datalist>
+              </tr>
+              <tr>
+                <td>Average Glucose Level:</td>
+                <td><input type="text" name="glucose_level" placeholder="Enter Average Glucose Level" required></td>
+              </tr>
+              <tr>
+                <td>BMI:</td>
+                <td><input type="text" name="bmi" placeholder="Enter BMI" required></td>
+              </tr>
+              <tr>
+                <td>Smoking Status:</td>
+                <td><input type="text" name="smoke_st" placeholder="Select Smoking Status" list="smoke_st" required></td>
+                <datalist id="smoke_st">
+                  <option value="Formerly Smoked"></option>
+                  <option value="Never Smoked"></option>
+                  <option value="Smokes"></option>
+                  <option value="Unknown"></option>
+                </datalist>
+              </tr>
+            </table>
+          </div>
+        </div>
+        <div class="row text-center">
+          <div class="col-md-12">
+            <input class = "btn btn-danger center" type="submit" value='Get Predictions'>
+          </div>
+        </div>
+        
+      </form>
+    </div>
+  </div>
+</div>
+</div>
+
+<!-- Modal end -->
 
     <!-- Login/ Sign Up Modal -->
     <div class="modal fade" id="login" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">

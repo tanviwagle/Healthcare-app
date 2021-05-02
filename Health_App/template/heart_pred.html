@@ -84,6 +84,7 @@
     </div>
   </div>
   <!-- Jumbotron end -->
+
   <div class="container">
   {% if result is not None %}
     {% if "don't" in result %}
@@ -133,7 +134,7 @@
           </button>
         </div>
         <div class="modal-body">
-          <form action="{% url 'result' %}" class="form-horizontal" id = "pred_form" autocomplete="off">
+          <form action="{% url 'heart_disease_result' %}" class="form-horizontal" id = "pred_form" autocomplete="off">
             {% csrf_token %}
             
             <div class="row">
