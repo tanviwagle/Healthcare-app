@@ -25,4 +25,5 @@ urlpatterns = [
     path('stroke_pred', views.stroke_pred, name='stroke'),
     path('heart_disease_result', views.heart_disease_result, name='heart_disease_result'),
     path('brain_stroke_result', views.brain_stroke_result, name='brain_stroke_result'),
+    path('liver_disease_result', views.liver_disease_result, name='liver_disease_result'),
 ]

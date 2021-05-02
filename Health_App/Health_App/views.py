@@ -300,3 +300,42 @@ def brain_stroke_result(request):
     result = get_brain_stroke_predictions(gender, age, hypertension, heart_dis, married, work_type, res_type, avg_glucose_level, bmi, smoking_status)
 
     return render(request, 'stroke_pred.html', {'result': result})
+
+
+## Liver Disease
+def get_liver_disease_predictions(age, gender, total_bil, direct_bil, alkaline_phos, alamine_amino, aspartate_amino, total_pro, albumin, albumin_ratio):
+    
+    import pickle
+    model = pickle.load(open("C:\\Users\\Wagle\\Desktop\\MCA\\SEM 6\\Internal Project\\Health_App\\Health_App\\Liver_Disease.sav", "rb"))
+
+    ## Gender
+    if gender == 'Male':
+        Gender_Male = 1
+        Gender_Female = 0
+    else:
+        Gender_Male = 0
+        Gender_Female = 1
+
+    prediction = model.predict([[age, total_bil, direct_bil, alkaline_phos, alamine_amino, aspartate_amino, total_pro, albumin, albumin_ratio, Gender_Female, Gender_Male]])
+
+    if prediction == 2:
+        return "You don't have heart disease"
+    elif prediction == 1:
+        return "Sorry! You have heart disease. Please consult a doctor."
+    else:
+        return "error"
+
+def liver_disease_result(request):
+    age = int(request.GET['age'])
+    gender = str(request.GET['gender'])
+    total_bil = float(request.GET['total_bil'])
+    direct_bil = float(request.GET['direct_bil'])
+    alkaline_phos = int(request.GET['alkaline_phos'])
+    alamine_amino = int(request.GET['alamine_amino'])
+    aspartate_amino = int(request.GET['aspartate_amino'])
+    total_pro = float(request.GET['total_pro'])
+    albumin = float(request.GET['albumin'])
+    albumin_ratio = float(request.GET['albumin_ratio'])
+
+    result = get_liver_disease_predictions(age, gender, total_bil, direct_bil, alkaline_phos, alamine_amino, aspartate_amino, total_pro, albumin, albumin_ratio)
+    return render(request, 'liver_pred.html', {'result': result})

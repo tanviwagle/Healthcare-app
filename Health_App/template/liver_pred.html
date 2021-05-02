@@ -22,7 +22,7 @@
   <link rel="stylesheet" href="{% static 'css/owl.theme.default.min.css' %}">
 
 
-  <!-- <link rel="stylesheet" href="{% static 'css/aos.css' %}"> -->
+  <link rel="stylesheet" href="{% static 'css/aos.css' %}">
 
   <link rel="stylesheet" href="{% static 'css/style.css' %}">
 </head>
@@ -70,8 +70,221 @@
         </div>
       </div>
     </div>
-
   </div>
+
+
+  <!-- Jumbotron -->
+  <div class="jumbotron">
+    <div class="container">
+      <h2 style="color: darkslategray;">Want to predict if you have liver disease? <a style="color:blue" href = "#" data-toggle="modal" data-target="#pred_modal"><u>Click Here</u></a></h2>
+    </div>
+  </div>
+  <!-- Jumbotron end -->
+
+  <div class="container">
+    {% if result is not None %}
+      {% if "don't" in result %}
+        <div class='alert alert-success alert-dismissible text-center'>
+          <h4 class="alert-heading">Predictions</h4>
+          <a href='#' class='close' data-dismiss='alert' aria-label='close'>&times;</a>
+          <strong>{{ result }}</strong>
+        </div>    
+      {% endif %}
+      {% if "don't" not in result %}
+        <div class='alert alert-danger alert-dismissible text-center'>
+          <h4 class="alert-heading">Predictions</h4>
+          <a href='#' class='close' data-dismiss='alert' aria-label='close'>&times;</a>
+          <strong>{{ result }}</strong>
+        </div>    
+      {% endif %}
+    {% endif %}
+  </div>
+
+
+  <div class="container">
+    <h3 style="color: black;">Stats</h3>
+    <div class="row">
+      <div class="col-md-4">
+        <h4>Col1</h4>
+      </div>
+      <div class="col-md-4">
+        <h4>col2</h4>
+      </div>
+      <div class="col-md-4">
+        <h4>col3</h4>
+      </div>
+    </div>
+  </div>
+
+<!-- Stroke Disease Modal -->
+<div class="modal fade bottom" id="pred_modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+aria-hidden="true">
+<div class="modal-dialog modal-dialog-scrollable modal-full-height modal-bottom" role="document">
+
+
+<div class="modal-content">
+  <div class="modal-header bg-info">
+    <h4 class="modal-title w-100" id="myModalLabel" style="color: floralwhite;">Liver Disease Prediction</h4>
+    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <form action="{% url 'liver_disease_result' %}" class="form-horizontal" id = "pred_form" autocomplete="off">
+      {% csrf_token %}
+      
+      <div class="row">
+        <div class="col-md-4 col-sm-10">
+          <table cellpadding = '10'>
+            <tr>
+              <td>Age:</td>
+              <td><input type="number" name="age" placeholder="Enter Age" required></td>
+            </tr>
+            <tr>
+              <td>Gender:</td>
+              <td><input type="text" name="gender" list="gender" placeholder="Select gender" required></td>
+              <datalist id="gender">
+                <option value="Female"></option>
+                <option value="Male"></option>
+              </datalist>
+            </tr>
+            <tr>
+              <td>Total Bilirubin:</td>
+              <td><input type="text" name="total_bil" placeholder="Enter total bilirubin" required></td>
+            </tr>
+          </table>
+        </div>
+        <div class="col-md-4 col-sm-10">
+          <table cellpadding = '10'>
+            <tr>
+              <td>Direct Bilirubin: </td>
+              <td><input type="text" name="direct_bil" placeholder="Enter direct bilirubin" required></td>
+            </tr>
+            <tr>
+              <td>Alkaline Phosphotase: </td>
+              <td><input type="number" name="alkaline_phos" placeholder="Enter Alkaline Phosphotase" required></td>
+            </tr>
+            <tr>
+              <td>Alamine Aminotransferase: </td>
+              <td><input type="number" name="alamine_amino" placeholder="Enter Alamine Aminotransferase" required></td>
+            </tr>
+          </table>
+        </div>
+        <div class="col-md-4 col-sm-4">
+          <table cellpadding='10'>
+            <tr>
+              <td>Aspartate Aminotransferase: </td>
+              <td><input type="number" name="aspartate_amino" placeholder="Enter Aspartate Aminotransferase" required></td>
+            </tr>
+            <tr>
+              <td>Total Protiens:</td>
+              <td><input type="text" name="total_pro" placeholder="Enter total proteins" required></td>
+            </tr>
+            <tr>
+              <td>Albumin:</td>
+              <td><input type="text" name="albumin" placeholder="Enter albumin" required></td>
+            </tr>
+            <tr>
+              <td>Albumin and Globulin Ratio:</td>
+              <td><input type="text" name="albumin_ratio" placeholder="Enter albumin globulin ratio" required></td>
+            </tr>
+          </table>
+        </div>
+      </div>
+      <div class="row text-center">
+        <div class="col-md-12">
+          <input class = "btn btn-info center" type="submit" value='Get Predictions'>
+        </div>
+      </div>
+      
+    </form>
+  </div>
+</div>
+</div>
+</div>
+
+<!-- Modal end -->
+
+  <!-- Login/ Sign Up Modal -->
+  <div class="modal fade" id="login" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog cascading-modal" role="document">
+
+      <div class="modal-content">
+        <div class="modal-c-tabs">
+
+          <!-- Nav tabs -->
+          <ul class="nav nav-tabs md-tabs tabs-2 light-blue darken-3" role="tablist">
+            <li class="nav-item">
+              <a class="nav-link active" data-toggle="tab" href="#login_tab" role="tab"><i class="fa fa-user mr-1"></i>
+                Login</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" data-toggle="tab" href="#signup_tab" role="tab"><i class="fa fa-user-plus mr-1"></i>
+                Sign Up</a>
+            </li>
+          </ul>
+
+          <!-- Tab panels -->
+          <div class="tab-content">
+            <!-- Login Tab -->
+            <div class="tab-pane fade in show active" id="login_tab" role="tabpanel">
+
+              <div class="modal-body mb-1">
+                <div class="md-form form-sm mb-5">
+                  <span class="fa fa-envelope prefix"></span>
+                  <input type="email" id="modalLRInput10" class="form-control form-control-sm validate">
+                  <label data-error="wrong" data-success="right" for="modalLRInput10">Your email</label>
+                </div>
+
+                <div class="md-form form-sm mb-4">
+                  <i class="fa fa-lock prefix"></i>
+                  <input type="password" id="modalLRInput11" class="form-control form-control-sm validate">
+                  <label data-error="wrong" data-success="right" for="modalLRInput11">Your password</label>
+                </div>
+                <div class="text-center mt-2">
+                  <button class="btn btn-info">Log in <i class="fa fa-sign-in ml-1"></i></button>
+                </div>
+              </div>
+
+            </div>
+
+            <!-- Sign Up Tab -->
+            <div class="tab-pane fade" id="signup_tab" role="tabpanel">
+
+              <div class="modal-body">
+                <div class="md-form form-sm mb-5">
+                  <span class="fa fa-envelope prefix"></span>
+                  <input type="email" id="modalLRInput12" class="form-control form-control-sm validate">
+                  <label data-error="wrong" data-success="right" for="modalLRInput12">Your email</label>
+                </div>
+
+                <div class="md-form form-sm mb-5">
+                  <i class="fa fa-lock prefix"></i>
+                  <input type="password" id="modalLRInput13" class="form-control form-control-sm validate">
+                  <label data-error="wrong" data-success="right" for="modalLRInput13">Your password</label>
+                </div>
+
+                <div class="md-form form-sm mb-4">
+                  <i class="fa fa-lock prefix"></i>
+                  <input type="password" id="modalLRInput14" class="form-control form-control-sm validate">
+                  <label data-error="wrong" data-success="right" for="modalLRInput14">Repeat password</label>
+                </div>
+
+                <div class="text-center form-sm mt-2">
+                  <button class="btn btn-info">Sign up <i class="fa fa-sign-in ml-1"></i></button>
+                </div>
+
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- Modal end -->
+
+
 
   <script src="{% static 'js/jquery-3.3.1.min.js' %}"></script>
   <script src="{% static 'js/jquery-ui.js' %}"></script>
@@ -79,9 +292,9 @@
   <script src="{% static 'js/bootstrap.min.js' %}"></script>
   <script src="{% static 'js/owl.carousel.min.js' %}"></script>
   <script src="{% static 'js/jquery.magnific-popup.min.js' %}"></script>
-  <!-- <script src="{% static 'js/aos.js' %}"></script>
+  <script src="{% static 'js/aos.js' %}"></script>
 
-  <script src="{% static 'js/main.js' %}"></script> -->
+  <script src="{% static 'js/main.js' %}"></script>
 
   <!-- jQuery -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
