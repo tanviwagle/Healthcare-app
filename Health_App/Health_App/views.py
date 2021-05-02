@@ -16,28 +16,30 @@ def stroke_pred(request):
     return render(request, 'stroke_pred.html')
 
 
-def get_predictions(age, sex, chest_pain, rest_bp, chol, fast_bp, rest_ecg, max_hr, exercise_induced_angina, st_dep, slope, num_major_vessel, thal):
+def get_heart_disease_predictions(age, sex, chest_pain, rest_bp, chol, fast_bp, rest_ecg, max_hr, exercise_induced_angina, st_dep, slope, num_major_vessel, thal):
     import pickle
     model = pickle.load(open("C:\\Users\\Wagle\\Desktop\\MCA\\SEM 6\\Internal Project\\Health_App\\Health_App\\Heart_Disease.sav", "rb"))
 
-    if sex == 0:
-        sex_0 = 1
-        sex_1 = 0
-    else:
+    # Sex
+    if sex == 'Male':
         sex_0 = 0
         sex_1 = 1
+    else:
+        sex_0 = 1
+        sex_1 = 0
     
-    if chest_pain == 0:
+    # Chest Pain Type
+    if chest_pain == "Typical Angina":
         chest_pain_type_0 = 1
         chest_pain_type_1 = 0
         chest_pain_type_2 = 0
         chest_pain_type_3 = 0
-    elif chest_pain == 1:
+    elif chest_pain == "Atypical Angina":
         chest_pain_type_0 = 0
         chest_pain_type_1 = 1
         chest_pain_type_2 = 0
         chest_pain_type_3 = 0
-    elif chest_pain == 2:
+    elif chest_pain == "Non-Anginal Pain":
         chest_pain_type_0 = 0
         chest_pain_type_1 = 0
         chest_pain_type_2 = 1
@@ -48,19 +50,20 @@ def get_predictions(age, sex, chest_pain, rest_bp, chol, fast_bp, rest_ecg, max_
         chest_pain_type_2 = 0
         chest_pain_type_3 = 1
     
-
-    if fast_bp == 0:
-        fasting_blood_pressure_0 = 1
-        fasting_blood_pressure_1 = 0
-    else:
+    #Fasting Bloood Pressure
+    if fast_bp == 'True':
         fasting_blood_pressure_0 = 0
         fasting_blood_pressure_1 = 1
+    else:
+        fasting_blood_pressure_0 = 1
+        fasting_blood_pressure_1 = 0
     
-    if rest_ecg == 0:
+    # Rest ECG
+    if rest_ecg == "Normal":
         rest_ecg_0 = 1
         rest_ecg_1 = 0
         rest_ecg_2 = 0
-    elif rest_ecg == 1:
+    elif rest_ecg == "ST-T wave abnormality":
         rest_ecg_0 = 0
         rest_ecg_1 = 1
         rest_ecg_2 = 0
@@ -69,18 +72,20 @@ def get_predictions(age, sex, chest_pain, rest_bp, chol, fast_bp, rest_ecg, max_
         rest_ecg_1 = 0
         rest_ecg_2 = 1
     
-    if exercise_induced_angina == 0:
-        exercise_induced_angina_0 = 1
-        exercise_induced_angina_1 = 0
-    else:
+    #Exercise Induced Angina
+    if exercise_induced_angina == 'Yes':
         exercise_induced_angina_0 = 0
         exercise_induced_angina_1 = 1
+    else:
+        exercise_induced_angina_0 = 1
+        exercise_induced_angina_1 = 0
     
-    if slope == 0:
+    # Slope
+    if slope == 'Upsloping':
         slope_0 = 1
         slope_1 = 0
         slope_2 = 0
-    elif slope == 1:
+    elif slope == 'Flatsloping':
         slope_0 = 0
         slope_1 = 1
         slope_2 = 0
@@ -89,7 +94,7 @@ def get_predictions(age, sex, chest_pain, rest_bp, chol, fast_bp, rest_ecg, max_
         slope_1 = 0
         slope_2 = 1
 
-
+    # Number of Major Vessels
     if num_major_vessel == 0:
         num_major_vessels_0 = 1
         num_major_vessels_1 = 0
@@ -121,26 +126,27 @@ def get_predictions(age, sex, chest_pain, rest_bp, chol, fast_bp, rest_ecg, max_
         num_major_vessels_3 = 0
         num_major_vessels_4 = 1
 
-    if thal == 0:
-        thal_0 = 1
-        thal_1 = 0
-        thal_2 = 0
-        thal_3 = 0
-    elif thal == 1:
+    # Thalium Stress Result
+    if thal == 'Normal':
         thal_0 = 0
         thal_1 = 1
         thal_2 = 0
         thal_3 = 0
-    elif thal == 2:
+    elif thal == 'Fixed defect':
         thal_0 = 0
         thal_1 = 0
         thal_2 = 1
         thal_3 = 0
-    else:
+    elif thal == 'Reversable defect':
         thal_0 = 0
         thal_1 = 0
         thal_2 = 0
         thal_3 = 1
+    else:
+        thal_0 = 1
+        thal_1 = 0
+        thal_2 = 0
+        thal_3 = 0
 
 
     prediction = model.predict([[age, rest_bp, chol, max_hr, st_dep, sex_0, sex_1, chest_pain_type_0, chest_pain_type_1, chest_pain_type_2, chest_pain_type_3, fasting_blood_pressure_0, fasting_blood_pressure_1, rest_ecg_0, rest_ecg_1, rest_ecg_2, exercise_induced_angina_0, exercise_induced_angina_1, slope_0, slope_1, slope_2, num_major_vessels_0, num_major_vessels_1, num_major_vessels_2, num_major_vessels_3, num_major_vessels_4, thal_0, thal_1, thal_2, thal_3]])
@@ -153,21 +159,21 @@ def get_predictions(age, sex, chest_pain, rest_bp, chol, fast_bp, rest_ecg, max_
         return "error"
 
 
-def result(request):
+def heart_disease_result(request):
     age = int(request.GET['age'])
-    sex = int(request.GET['sex'])
-    chest_pain = int(request.GET['chest_pain'])
+    sex = str(request.GET['sex'])
+    chest_pain = str(request.GET['chest_pain'])
     rest_bp = int(request.GET['rest_bp'])
     chol = int(request.GET['chol'])
-    fast_bp= int(request.GET['fast_bp'])
-    rest_ecg= int(request.GET['rest_ecg'])
+    fast_bp= str(request.GET['fast_bp'])
+    rest_ecg= str(request.GET['rest_ecg'])
     max_hr= int(request.GET['max_hr'])
-    exercise_induced_angina= int(request.GET['ex_in_ang'])
-    st_dep= int(request.GET['st_dep'])
-    slope=int(request.GET['slope'])
+    exercise_induced_angina= str(request.GET['ex_in_ang'])
+    st_dep= float(request.GET['st_dep'])
+    slope=str(request.GET['slope'])
     num_major_vessel=int(request.GET['n_majorVessel'])
-    thal=int(request.GET['thal'])
+    thal=str(request.GET['thal'])
 
-    result = get_predictions(age, sex, chest_pain, rest_bp, chol, fast_bp, rest_ecg, max_hr, exercise_induced_angina, st_dep, slope, num_major_vessel, thal)
+    result = get_heart_disease_predictions(age, sex, chest_pain, rest_bp, chol, fast_bp, rest_ecg, max_hr, exercise_induced_angina, st_dep, slope, num_major_vessel, thal)
 
-    return render(request, 'result.html', {'result': result})
+    return render(request, 'heart_pred.html', {'result': result})

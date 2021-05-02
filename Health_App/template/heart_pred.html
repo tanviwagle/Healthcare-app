@@ -28,6 +28,10 @@
 
 </head>
 
+<script type="text/javascript">
+
+</script>
+
 <body>
 
   <div class="site-wrap">
@@ -76,19 +80,48 @@
   <!-- Jumbotron -->
   <div class="jumbotron">
     <div class="container">
-      <h2 style="color: darkslategray;">Want to predict if you have heart disease? <a style="color:blue" href = "#" data-toggle="modal" data-target="#fullHeightModalRight"><u>Click Here</u></a></h2>
+      <h2 style="color: darkslategray;">Want to predict if you have heart disease? <a style="color:blue" href = "#" data-toggle="modal" data-target="#pred_modal"><u>Click Here</u></a></h2>
     </div>
   </div>
   <!-- Jumbotron end -->
+  <div class="container">
+  {% if result is not None %}
+    {% if "don't" in result %}
+      <div class='alert alert-success alert-dismissible text-center'>
+        <h4 class="alert-heading">Predictions</h4>
+        <a href='#' class='close' data-dismiss='alert' aria-label='close'>&times;</a>
+        <strong>{{ result }}</strong>
+      </div>    
+    {% endif %}
+    {% if "don't" not in result %}
+      <div class='alert alert-danger alert-dismissible text-center'>
+        <h4 class="alert-heading">Predictions</h4>
+        <a href='#' class='close' data-dismiss='alert' aria-label='close'>&times;</a>
+        <strong>{{ result }}</strong>
+      </div>    
+    {% endif %}
+  {% endif %}
+</div>
+
+    <div class="container">
+      <h3 style="color: black;">Stats</h3>
+      <div class="row">
+        <div class="col-md-4">
+          <h4>Col1</h4>
+        </div>
+        <div class="col-md-4">
+          <h4>col2</h4>
+        </div>
+        <div class="col-md-4">
+          <h4>col3</h4>
+        </div>
+      </div>
+    </div>
 
 
   <!-- Heart Disease Modal -->
-
-  <!-- Full Height Modal Right -->
-  <div class="modal fade bottom" id="fullHeightModalRight" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+  <div class="modal fade bottom" id="pred_modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
     aria-hidden="true">
-
-    <!-- Add class .modal-full-height and then add class .modal-right (or other classes from list above) to set a position to the modal -->
     <div class="modal-dialog modal-dialog-scrollable modal-full-height modal-bottom" role="document">
 
 
@@ -100,71 +133,104 @@
           </button>
         </div>
         <div class="modal-body">
-          <form action="{% url 'result' %}" class="form-horizontal">
+          <form action="{% url 'result' %}" class="form-horizontal" id = "pred_form" autocomplete="off">
             {% csrf_token %}
             
             <div class="row">
-              <div class="col-md-4">
+              <div class="col-md-4 col-sm-10">
                 <table cellpadding = '10'>
                   <tr>
                     <td>Age:</td>
-                    <td><input type="text" name="age"></td>
+                    <td><input type="number" name="age" placeholder="Enter Age" required></td>
                   </tr>
                   <tr>
                     <td>Sex:</td>
-                    <td><input type="text" name="sex"></td>
+                    <td><input type="text" name="sex" list="sex" placeholder="Select Sex" required></td>
+                    <datalist id="sex">
+                      <option value="Female"></option>
+                      <option value="Male"></option>
+                    </datalist>
                   </tr>
                   <tr>
                     <td>Chest Pain Type:</td>
-                    <td><input type="text" name="chest_pain"></td>
+                    <td><input type="text" name="chest_pain" list="chest_pain" placeholder="Select chest pain type" required></td>
+                    <datalist id="chest_pain">
+                      <option value="Typical Angina"></option>
+                      <option value="Atypical Angina"></option>
+                      <option value="Non-Anginal Pain"></option>
+                      <option value="Asymptomatic Pain"></option>
+                    </datalist>
                   </tr>
                   <tr>
                     <td>Rest Blood Pressure:</td>
-                    <td><input type="text" name="rest_bp"></td>
+                    <td><input type="number" name="rest_bp" placeholder="Enter Rest BP in mm Hg" required></td>
                   </tr>
                 </table>
               </div>
-              <div class="col-md-4">
+              <div class="col-md-4 col-sm-10">
                 <table cellpadding = '10'>
                   <tr>
                     <td>Cholesterol:</td>
-                    <td><input type="text" name="chol"></td>
+                    <td><input type="number" name="chol" placeholder="Enter cholesterol in mg/dl" required></td>
                   </tr>
                   <tr>
                     <td>Fasting Blood Pressure:</td>
-                    <td><input type="text" name="fast_bp"></td>
+                    <td><input type="text" name="fast_bp" placeholder="More than 120mg/dl?" list="fast_bp" required></td>
+                    <datalist id="fast_bp">
+                      <option value="True"></option>
+                      <option value="False"></option>
+                    </datalist>
                   </tr>
                   <tr>
                     <td>Rest ECG:</td>
-                    <td><input type="text" name="rest_ecg"></td>
+                    <td><input type="text" name="rest_ecg" placeholder="Select Rest ECG" list="rest_ecg" required></td>
+                    <datalist id="rest_ecg">
+                      <option value="Normal"></option>
+                      <option value="ST-T wave abnormality"></option>
+                      <option value="Possible or definite left ventricular hypertrophy"></option>
+                    </datalist>
                   </tr>
                   <tr>
                     <td>Maximum Heart Rate Achieved:</td>
-                    <td><input type="text" name="max_hr"></td>
+                    <td><input type="number" name="max_hr" placeholder="Enter max heart rate" required></td>
                   </tr>
                 </table>
               </div>
-              <div class="col-md-4">
+              <div class="col-md-4 col-sm-4">
                 <table cellpadding='10'>
                   <tr>
                     <td>Exercise Induced Angina:</td>
-                    <td><input type="text" name="ex_in_ang"></td>
+                    <td><input type="text" name="ex_in_ang" list="ex_in_ang" placeholder="Select exercise angina type" required></td>
+                    <datalist id="ex_in_ang">
+                      <option value="Yes"></option>
+                      <option value="No"></option>
+                    </datalist>
                   </tr>
                   <tr>
                     <td>ST Depression:</td>
-                    <td><input type="text" name="st_dep"></td>
+                    <td><input type="text" name="st_dep" placeholder="Enter ST Depression" required></td>
                   </tr>
                   <tr>
                     <td>Slope:</td>
-                    <td><input type="text" name="slope"></td>
+                    <td><input type="text" name="slope" placeholder="Select Slope type" list="slope" required></td>
+                    <datalist id="slope">
+                      <option value="Upsloping"></option>
+                      <option value="Flatsloping"></option>
+                      <option value="Downsloping"></option>
+                    </datalist>
                   </tr>
                   <tr>
                     <td>Number of Major Vessels:</td>
-                    <td><input type="text" name="n_majorVessel"></td>
+                    <td><input type="number" name="n_majorVessel" min='0' max="3" required>  (Vessels colored by flourosopy)</td>
                   </tr>
                   <tr>
-                    <td>Thal:</td>
-                    <td><input type="text" name="thal"></td>
+                    <td>Thalium Stress Result:</td>
+                    <td><input type="text" name="thal" placeholder="Select Thalium result" list="thal" required></td>
+                    <datalist id="thal">
+                      <option value="Normal"></option>
+                      <option value="Fixed defect"></option>
+                      <option value="Reversable defect"></option>
+                    </datalist>
                   </tr>
                 </table>
               </div>
