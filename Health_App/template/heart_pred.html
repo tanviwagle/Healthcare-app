@@ -22,7 +22,7 @@
   <link rel="stylesheet" href="{% static 'css/owl.theme.default.min.css' %}">
 
 
-  <!-- <link rel="stylesheet" href="{% static 'css/aos.css' %}"> -->
+  <link rel="stylesheet" href="{% static 'css/aos.css' %}">
 
   <link rel="stylesheet" href="{% static 'css/style.css' %}">
 
@@ -73,15 +73,125 @@
     </div>
   </div>
 
+  <!-- Jumbotron -->
+  <div class="jumbotron">
+    <div class="container">
+      <h2 style="color: darkslategray;">Want to predict if you have heart disease? <a style="color:blue" href = "#" data-toggle="modal" data-target="#fullHeightModalRight"><u>Click Here</u></a></h2>
+    </div>
+  </div>
+  <!-- Jumbotron end -->
+
+
+  <!-- Heart Disease Modal -->
+
+  <!-- Full Height Modal Right -->
+  <div class="modal fade bottom" id="fullHeightModalRight" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+    aria-hidden="true">
+
+    <!-- Add class .modal-full-height and then add class .modal-right (or other classes from list above) to set a position to the modal -->
+    <div class="modal-dialog modal-dialog-scrollable modal-full-height modal-bottom" role="document">
+
+
+      <div class="modal-content">
+        <div class="modal-header bg-success">
+          <h4 class="modal-title w-100" id="myModalLabel" style="color: floralwhite;">Heart Disease Prediction</h4>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <form action="{% url 'result' %}" class="form-horizontal">
+            {% csrf_token %}
+            
+            <div class="row">
+              <div class="col-md-4">
+                <table cellpadding = '10'>
+                  <tr>
+                    <td>Age:</td>
+                    <td><input type="text" name="age"></td>
+                  </tr>
+                  <tr>
+                    <td>Sex:</td>
+                    <td><input type="text" name="sex"></td>
+                  </tr>
+                  <tr>
+                    <td>Chest Pain Type:</td>
+                    <td><input type="text" name="chest_pain"></td>
+                  </tr>
+                  <tr>
+                    <td>Rest Blood Pressure:</td>
+                    <td><input type="text" name="rest_bp"></td>
+                  </tr>
+                </table>
+              </div>
+              <div class="col-md-4">
+                <table cellpadding = '10'>
+                  <tr>
+                    <td>Cholesterol:</td>
+                    <td><input type="text" name="chol"></td>
+                  </tr>
+                  <tr>
+                    <td>Fasting Blood Pressure:</td>
+                    <td><input type="text" name="fast_bp"></td>
+                  </tr>
+                  <tr>
+                    <td>Rest ECG:</td>
+                    <td><input type="text" name="rest_ecg"></td>
+                  </tr>
+                  <tr>
+                    <td>Maximum Heart Rate Achieved:</td>
+                    <td><input type="text" name="max_hr"></td>
+                  </tr>
+                </table>
+              </div>
+              <div class="col-md-4">
+                <table cellpadding='10'>
+                  <tr>
+                    <td>Exercise Induced Angina:</td>
+                    <td><input type="text" name="ex_in_ang"></td>
+                  </tr>
+                  <tr>
+                    <td>ST Depression:</td>
+                    <td><input type="text" name="st_dep"></td>
+                  </tr>
+                  <tr>
+                    <td>Slope:</td>
+                    <td><input type="text" name="slope"></td>
+                  </tr>
+                  <tr>
+                    <td>Number of Major Vessels:</td>
+                    <td><input type="text" name="n_majorVessel"></td>
+                  </tr>
+                  <tr>
+                    <td>Thal:</td>
+                    <td><input type="text" name="thal"></td>
+                  </tr>
+                </table>
+              </div>
+            </div>
+            <div class="row text-center">
+              <div class="col-md-12">
+                <input class = "btn btn-success center" type="submit" value='Get Predictions'>
+              </div>
+            </div>
+            
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal end -->
+
   <script src="{% static 'js/jquery-3.3.1.min.js' %}"></script>
   <script src="{% static 'js/jquery-ui.js' %}"></script>
   <script src="{% static 'js/popper.min.js' %}"></script>
   <script src="{% static 'js/bootstrap.min.js' %}"></script>
   <script src="{% static 'js/owl.carousel.min.js' %}"></script>
   <script src="{% static 'js/jquery.magnific-popup.min.js' %}"></script>
-  <!-- <script src="{% static 'js/aos.js' %}"></script>
+  <script src="{% static 'js/aos.js' %}"></script>
 
-  <script src="{% static 'js/main.js' %}"></script> -->
+  <script src="{% static 'js/main.js' %}"></script>
 
   <!-- jQuery -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
