@@ -22,9 +22,12 @@
   <link rel="stylesheet" href="{% static 'css/owl.theme.default.min.css' %}">
 
 
-  <!-- <link rel="stylesheet" href="{% static 'css/aos.css' %}"> -->
+  <link rel="stylesheet" href="{% static 'css/aos.css' %}">
 
   <link rel="stylesheet" href="{% static 'css/style.css' %}">
+
+  <!-- Chart.js -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
 </head>
 
@@ -102,17 +105,27 @@
 
 
     <div class="container">
-      <h3 style="color: black;">Stats</h3>
-      <div class="row">
-        <div class="col-md-4">
-          <h4>Col1</h4>
+      <abbr title="Statistical Plots"><h3 style="color: black;"><b>Stats: </b></h3></abbr>
+      <hr>
+      <div class="row justify-content-center">
+        <div class="col-md-6">
+          <canvas id = "chart1"></canvas>
         </div>
-        <div class="col-md-4">
-          <h4>col2</h4>
-        </div>
-        <div class="col-md-4">
-          <h4>col3</h4>
-        </div>
+        <div class="col-md-6">
+          <canvas id = "chart2"></canvas>
+        </div> 
+      </div>
+      <br>
+      <div class="row justify-content-center">
+        <div class="col-md-10">
+          <canvas id = "chart3"></canvas>
+        </div> 
+      </div>
+      <br>
+      <div class="row justify-content-center">
+        <div class="col-md-10">
+          <canvas id = "chart4"></canvas>
+        </div> 
       </div>
     </div>
 
@@ -314,6 +327,171 @@ aria-hidden="true">
     <!-- Modal end -->
 
 
+  <script>
+
+    var ctx = document.getElementById('chart1').getContext('2d');
+    var ctx1 = document.getElementById('chart2').getContext('2d');
+    var ctx2 = document.getElementById('chart3').getContext('2d');
+    var ctx3 = document.getElementById('chart4').getContext('2d');
+
+    var chart = new Chart(ctx, {
+      // data
+      data: {
+        labels: {{ gender_names|safe }},
+        datasets: [
+          {
+          type: 'doughnut',
+          label: 'Never had Brain Stroke',
+          data: {{ gender_without_disease|safe }},
+          fill:true,
+          backgroundColor: ['rgb(25,25,112)','rgb(255,69,0)']},
+          {
+            type: 'doughnut',
+          label: 'Had Brain Stroke',
+          data: {{ gender_with_disease|safe }},
+          fill:true,
+          backgroundColor: ['rgba(220,20,60, 1.0)',
+          'rgba(30,144,255, 0.8)'],
+          }
+      ],
+      },
+      options: {
+        plugins: {
+          title: {
+              display: true,
+              text: 'Gender-wise distribution whether they had/never had brain stroke',
+              weight: 'bold',
+              font: {
+                size: 20
+            }
+          },
+          legend:{
+            display: false,
+          }
+      }
+      }
+    });
+
+
+    var chart1 = new Chart(ctx1, {
+      // data
+      data: {
+        labels: {{ stroke_res_names|safe }},
+        datasets: [
+        {
+          type: 'pie',
+        label: 'Never had stroke',
+        data: {{ res_never_had_stroke|safe }},
+        fill:true,
+        backgroundColor: ['rgba(139,0,0,0.8)','rgba(255,255,0,0.6)'],
+        },
+          {
+          type: 'pie',
+          label: 'Had Stroke',
+          data: {{ res_had_stroke|safe }},
+          fill:true,
+          backgroundColor: ['rgba(50,205,50, 1.0)',
+          'rgb(255,140,0)']}
+          
+      ],
+      },
+      options: {
+        plugins: {
+          title: {
+              display: true,
+              text: 'Count of people with different work types who had brain stroke (married/not married)',
+              weight: 'bold',
+              font: {
+                size: 20
+            }
+          },
+          legend:{
+            display: false,
+          }
+      }
+      }
+    });
+
+
+    
+    var chart2 = new Chart(ctx2, {
+      // data
+      data: {
+        labels: {{ not_married_work_type_names|safe }},
+        datasets: [
+          {
+          type: 'bar',
+          label: 'Not Married',
+          data: {{ not_married_with_disease_count|safe }},
+          fill:true,
+          backgroundColor: ['rgb(255,215,0)']},
+          {
+            type: 'bar',
+          label: 'Married',
+          data: {{ married_with_disease_count|safe }},
+          fill:true,
+          backgroundColor: ['rgb(139,0,0)'],
+          }
+      ],
+      },
+      options: {
+        plugins: {
+          title: {
+              display: true,
+              text: 'Count of people with different work types who had brain stroke (married/not married)',
+              weight: 'bold',
+              font: {
+                size: 20
+            }
+          },
+          legend:{
+            display: true,
+            position: 'bottom'
+          }
+      }
+      }
+    });
+
+    var chart3 = new Chart(ctx3, {
+      // data
+      data: {
+        labels: {{ smoke_status_names|safe }},
+        datasets: [
+          {
+          type: 'bar',
+          label: 'Had Stroke',
+          data: {{ smoke_had_stroke|safe }},
+          fill:true,
+          backgroundColor: ['rgb(255,69,0)']},
+          {
+            type: 'bar',
+          label: 'Never had Stroke',
+          data: {{ smoke_no_stroke|safe }},
+          fill:true,
+          backgroundColor: ['rgb(0,100,0)'],
+          }
+      ],
+      },
+      options: {
+        plugins: {
+          title: {
+              display: true,
+              text: 'Smoking status of people who had or never had brain stroke',
+              weight: 'bold',
+              font: {
+                size: 20
+            }
+          },
+          legend:{
+            display: true,
+            position: 'bottom'
+          }
+      }
+      }
+    });
+
+  </script>
+
   
 
    <script src="{% static 'js/jquery-3.3.1.min.js' %}"></script>
@@ -322,9 +500,9 @@ aria-hidden="true">
   <script src="{% static 'js/bootstrap.min.js' %}"></script>
   <script src="{% static 'js/owl.carousel.min.js' %}"></script>
   <script src="{% static 'js/jquery.magnific-popup.min.js' %}"></script>
-  <!-- <script src="{% static 'js/aos.js' %}"></script>
+  <script src="{% static 'js/aos.js' %}"></script> 
 
-  <script src="{% static 'js/main.js' %}"></script> -->
+  <script src="{% static 'js/main.js' %}"></script> 
 
   <!-- jQuery -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>

@@ -68,7 +68,43 @@ def liver_pred(request):
     return render(request, 'liver_pred.html', context)
 
 def stroke_pred(request):
-    return render(request, 'stroke_pred.html')
+    df_train = pd.read_csv(r'..\Datasets\healthcare-dataset-stroke-data.csv')
+    
+    # Gender
+    gender_Disease = df_train[df_train['stroke'] == 1]['gender'].value_counts()
+    gender_with_disease = gender_Disease.values.tolist()
+    gender = df_train[df_train['stroke'] == 0]['gender'].value_counts()
+    gender_without_disease = gender.values.tolist()
+    gender_names = ['Male', 'Female']
+
+    # Ever Married, work_type
+    had_stroke = df_train[df_train['stroke'] == 1][['ever_married','work_type']]
+    married = had_stroke[had_stroke['ever_married'] == 'Yes'].groupby('work_type').count()
+    married_with_disease = pd.DataFrame({'Work_Type': married.index, 'Values': married['ever_married'].values})
+    not_married = had_stroke[had_stroke['ever_married'] == 'No'].groupby('work_type').count()
+    not_married_with_disease = pd.DataFrame({'Work_Type': not_married.index, 'Values': not_married['ever_married'].values})
+    not_married_work_type_names = not_married_with_disease['Work_Type'].tolist()
+    not_married_with_disease_count = not_married_with_disease['Values'].to_list()
+    married_work_type_names = married_with_disease['Work_Type'].tolist()
+    married_with_disease_count = married_with_disease['Values'].to_list()
+
+
+    # Residence type + disease/ no disease
+    res_had_stroke = df_train[df_train['stroke'] == 1]['Residence_type'] .value_counts().values.tolist()
+    stroke_res_names = ['Urban', 'Rural']
+    res_never_had_stroke = df_train[df_train['stroke'] == 0]['Residence_type'] .value_counts().values.tolist()
+
+
+    # smoking status + disease/ no disease
+    had_stroke_smStatus = df_train[df_train['stroke'] == 1].groupby('smoking_status').count()['stroke']
+    no_stroke_smStatus = df_train[df_train['stroke'] == 0].groupby('smoking_status').count()['stroke']
+    smoke_status_names = had_stroke_smStatus.index.tolist()
+    smoke_had_stroke = had_stroke_smStatus.values.tolist()
+    smoke_no_stroke = no_stroke_smStatus.values.tolist()
+
+
+    context = {'gender_with_disease':gender_with_disease, 'gender_without_disease': gender_without_disease, 'gender_names': gender_names, 'not_married_work_type_names':not_married_work_type_names, 'not_married_with_disease_count': not_married_with_disease_count, 'married_work_type_names': married_work_type_names, 'married_with_disease_count': married_with_disease_count, 'res_had_stroke': res_had_stroke, 'stroke_res_names': stroke_res_names, 'res_never_had_stroke': res_never_had_stroke, 'smoke_status_names': smoke_status_names, 'smoke_had_stroke': smoke_had_stroke, 'smoke_no_stroke': smoke_no_stroke}
+    return render(request, 'stroke_pred.html', context)
 
 ## Heart Disease
 def get_heart_disease_predictions(age, sex, chest_pain, rest_bp, chol, fast_bp, rest_ecg, max_hr, exercise_induced_angina, st_dep, slope, num_major_vessel, thal):
