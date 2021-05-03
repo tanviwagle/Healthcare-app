@@ -80,7 +80,7 @@
   </div>
 
   <!-- Jumbotron -->
-  <div class="jumbotron">
+  <div class="jumbotron jumbotron-fluid">
     <div class="container">
       <h2 style="color: darkslategray;">Want to predict if you have heart disease? <a style="color:blue" href = "#" data-toggle="modal" data-target="#pred_modal"><u>Click Here</u></a></h2>
     </div>
@@ -405,13 +405,13 @@
     data: {
       datasets: [{
           type: 'line',
-          label: 'With Disease',
+          label: 'With Heart Disease',
           data: {{ max_rate_with_disease|safe }},
           fill:true,
           borderColor: 'rgb(139,0,0)'
       }, {
           type: 'line',
-          label: 'Without Disease',
+          label: 'Without Heart Disease',
           data: {{ max_rate_without_disease|safe }},
           fill:true,
           borderColor: 'rgb(0,100,0)'
@@ -422,7 +422,7 @@
     plugins: {
       title: {
           display: true,
-          text: 'Max heart rate achieved with/without heart disease.',
+          text: 'Max. heart rate achieved with/without heart disease.',
           weight: 'bold',
           font: {
             size: 20

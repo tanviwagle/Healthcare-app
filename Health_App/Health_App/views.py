@@ -37,6 +37,7 @@ def heart_pred(request):
     return render(request, 'heart_pred.html', context)
 
 def liver_pred(request):
+    
     return render(request, 'liver_pred.html')
 
 def stroke_pred(request):
