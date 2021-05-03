@@ -1,5 +1,7 @@
+from typing import ContextManager
 from django.shortcuts import render
-from django.http import HttpResponse
+import pandas as pd
+
 
 
 def index(request):
@@ -7,7 +9,16 @@ def index(request):
 
 
 def heart_pred(request):
-    return render(request, 'heart_pred.html')
+    df_train = pd.read_csv(r'..\Datasets\heart.csv')
+    gender_having_Disease = df_train[df_train['target'] == 1].groupby('sex').sum()['target']
+    gender_having_Disease = pd.DataFrame({'Sex': gender_having_Disease.index, 'Values': gender_having_Disease.values})
+    gender_having_Disease['Sex'].loc[0] = 'Female'
+    gender_having_Disease['Sex'].loc[1] = 'Male'
+    gender_list = gender_having_Disease['Sex'].values.tolist()
+    gender_list_count = gender_having_Disease['Values'].values.tolist()
+
+    context = {'gender_list': gender_list, 'gender_list_count': gender_list_count}
+    return render(request, 'heart_pred.html', context)
 
 def liver_pred(request):
     return render(request, 'liver_pred.html')
