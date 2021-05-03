@@ -400,36 +400,36 @@
     }
     }
   });
-
+  
   var chart2 = new Chart(ctx2, {
     data: {
       datasets: [{
           type: 'line',
           label: 'With Heart Disease',
-          data: {{ max_rate_with_disease|safe }},
+          data: {{ max_rate_with_disease_count|safe }},
           fill:true,
           borderColor: 'rgb(139,0,0)'
       }, {
           type: 'line',
           label: 'Without Heart Disease',
-          data: {{ max_rate_without_disease|safe }},
+          data: {{ max_rate_without_disease_count|safe }},
           fill:true,
           borderColor: 'rgb(0,100,0)'
       }],
-      labels: ['0','20','40','60','80','100','120', '140', '160', '180'],
+      labels: {{ max_rate_with_disease_names|safe }},
   },
   options: {
     plugins: {
       title: {
           display: true,
-          text: 'Max. heart rate achieved with/without heart disease.',
+          text: 'No of people whose max. heart rate achieved with/without heart disease.',
           weight: 'bold',
           font: {
             size: 20
         }
       },
       legend:{
-        position: 'right'
+        position: 'bottom'
       }
   }
 }

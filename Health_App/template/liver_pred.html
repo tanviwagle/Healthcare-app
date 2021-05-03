@@ -25,6 +25,9 @@
   <link rel="stylesheet" href="{% static 'css/aos.css' %}">
 
   <link rel="stylesheet" href="{% static 'css/style.css' %}">
+
+  <!-- Chart.js -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 
 <body>
@@ -102,17 +105,18 @@
 
 
   <div class="container">
-    <h3 style="color: black;">Stats</h3>
-    <div class="row">
-      <div class="col-md-4">
-        <h4>Col1</h4>
+    <abbr title="Statistical Plots"><h3 style="color: black;"><b>Stats: </b></h3></abbr>
+    <hr>
+    <div class="row justify-content-center">
+      <div class="col-md-7">
+        <canvas id = "chart1"></canvas>
       </div>
-      <div class="col-md-4">
-        <h4>col2</h4>
-      </div>
-      <div class="col-md-4">
-        <h4>col3</h4>
-      </div>
+    </div>
+    <br>
+    <div class="row justify-content-center">
+      <div class="col-md-6">
+        <canvas id = "chart2"></canvas>
+      </div> 
     </div>
   </div>
 
@@ -284,6 +288,81 @@ aria-hidden="true">
   </div>
   <!-- Modal end -->
 
+  <script>
+
+    var ctx = document.getElementById('chart1').getContext('2d');
+    var ctx1 = document.getElementById('chart2').getContext('2d');
+    var chart = new Chart(ctx, {
+    // data
+    data: {
+      labels: {{ age_with_disease_names|safe }},
+      datasets: [{
+        type: 'line',
+        label: 'With Liver Disease',
+        data: {{ age_with_disease_count|safe }},
+        fill:true,
+        borderColor: 'rgb(255,69,0)'
+        }, {
+        type: 'line',
+        label: 'Without Liver Disease',
+        data: {{ age_without_disease_count|safe }},
+        fill:true,
+        borderColor: 'rgb(25,25,112)'
+    }],
+    },
+    options: {
+      plugins: {
+        title: {
+            display: true,
+            text: 'No. of people of different age group with/without Liver Disease',
+            weight: 'bold',
+            font: {
+              size: 20
+          }
+        },
+        legend:{
+          position: 'bottom',
+        }
+    }
+    }
+  });
+
+  var chart1 = new Chart(ctx1, {
+    // data
+    data: {
+      labels: {{ gender_names|safe }},
+      datasets: [{
+        type: 'pie',
+        label: 'With Liver Disease',
+        data: {{ gender_with_disease|safe }},
+        fill:true,
+        backgroundColor: ['rgba(220,20,60, 1.0)',
+        'rgba(0,0,139, 0.8)'],
+        }, {
+        type: 'pie',
+        label: 'Without Liver Disease',
+        data: {{ gender_without_disease|safe }},
+        fill:true,
+        backgroundColor: ['rgba(75,0,130, 0.8)','rgba(255,215,0, 0.8)']}
+    ],
+    },
+    options: {
+      plugins: {
+        title: {
+            display: true,
+            text: 'No. of people of different age group with/without Liver Disease',
+            weight: 'bold',
+            font: {
+              size: 20
+          }
+        },
+        legend:{
+          display: false,
+        }
+    }
+    }
+  });
+  </script>
 
 
   <script src="{% static 'js/jquery-3.3.1.min.js' %}"></script>

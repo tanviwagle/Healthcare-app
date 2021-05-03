@@ -30,15 +30,42 @@ def heart_pred(request):
     cp_with_disease_count = cp_type_with_disease['Values'].values.tolist()
 
     # Max heart rate achieved
-    max_rate_with_disease = df_train[df_train['target'] == 1]['thalach'].tolist()
-    max_rate_without_disease = df_train[df_train['target'] == 0]['thalach'].tolist()
+    df_train["max_rate_group"]=pd.qcut(df_train.thalach, 5, labels = ['70-100', '101-130', '131-160', '161-190', '191-210'])
+    max_rate_with_disease = df_train[df_train['target'] == 1].groupby('max_rate_group').count()['target']
+    max_rate_without_disease = df_train[df_train['target'] == 0].groupby('max_rate_group').count()['target']
+    max_rate_with_disease = pd.DataFrame({'Rate_Group': max_rate_with_disease.index, 'Values': max_rate_with_disease.values})
+    max_rate_without_disease = pd.DataFrame({'Rate_Group': max_rate_without_disease.index, 'Values': max_rate_without_disease.values})
+    max_rate_with_disease_names = max_rate_with_disease['Rate_Group'].values.tolist()
+    max_rate_with_disease_count = max_rate_with_disease['Values'].values.tolist()
+    max_rate_without_disease_names = max_rate_without_disease['Rate_Group'].values.tolist()
+    max_rate_without_disease_count = max_rate_without_disease['Values'].values.tolist()
 
-    context = {'gender_list': gender_list, 'gender_list_count': gender_list_count, 'cp_with_disease_list': cp_with_disease_list, 'cp_with_disease_count': cp_with_disease_count, 'max_rate_with_disease': max_rate_with_disease, 'max_rate_without_disease': max_rate_without_disease}
+    context = {'gender_list': gender_list, 'gender_list_count': gender_list_count, 'cp_with_disease_list': cp_with_disease_list, 'cp_with_disease_count': cp_with_disease_count, 'max_rate_with_disease_names':max_rate_with_disease_names, 'max_rate_with_disease_count': max_rate_with_disease_count, 'max_rate_without_disease_names': max_rate_without_disease_names, 'max_rate_without_disease_count': max_rate_without_disease_count}
     return render(request, 'heart_pred.html', context)
 
 def liver_pred(request):
-    
-    return render(request, 'liver_pred.html')
+    df_train = pd.read_csv(r'..\Datasets\indian_liver_patient.csv')
+
+    # Age
+    df_train["agegrp"]=pd.qcut(df_train.Age, 5, labels = ['0-20', '21-40', '41-60', '61-80', '81-95'])
+    age_with_disease = df_train[df_train['Dataset'] == 1].groupby('agegrp').count()['Dataset']
+    age_without_disease = df_train[df_train['Dataset'] == 2].groupby('agegrp').count()['Dataset']
+    age_with_disease = pd.DataFrame({'Age_Group': age_with_disease.index, 'Values': age_with_disease.values})
+    age_without_disease = pd.DataFrame({'Age_Group': age_without_disease.index, 'Values': age_without_disease.values})
+    age_with_disease_names = age_with_disease['Age_Group'].values.tolist()
+    age_with_disease_count = age_with_disease['Values'].values.tolist()
+    age_without_disease_names = age_without_disease['Age_Group'].values.tolist()
+    age_without_disease_count = age_without_disease['Values'].values.tolist()
+
+    # Gender
+    gender_Disease = df_train[df_train['Dataset'] == 1]['Gender'].value_counts()
+    gender_with_disease = gender_Disease.values.tolist()
+    gender = df_train[df_train['Dataset'] == 2]['Gender'].value_counts()
+    gender_without_disease = gender.values.tolist()
+    gender_names = ['Male', 'Female']
+
+    context = {'age_with_disease_names': age_with_disease_names, 'age_with_disease_count': age_with_disease_count,'age_without_disease_names': age_without_disease_names, 'age_without_disease_count': age_without_disease_count, 'gender_with_disease': gender_with_disease, 'gender_without_disease': gender_without_disease, 'gender_names': gender_names}
+    return render(request, 'liver_pred.html', context)
 
 def stroke_pred(request):
     return render(request, 'stroke_pred.html')
