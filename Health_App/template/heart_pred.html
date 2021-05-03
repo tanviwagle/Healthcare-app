@@ -107,16 +107,18 @@
 </div>
 
     <div class="container">
-      <abbr title="Statistical Plots"><h3 style="color: black;">Stats</h3></abbr>
+      <abbr title="Statistical Plots"><h3 style="color: black;"><b>Stats: </b></h3></abbr>
       <hr>
-      <div class="row">
-        <div class="col-md-4">
+      <div class="row justify-content-center">
+        <div class="col-md-5">
           <canvas id = "chart1"></canvas>
         </div>
-        <div class="col-md-4">
+        <div class="col-md-5">
           <canvas id = "chart2"></canvas>
-        </div>
-        <div class="col-md-4">
+        </div> 
+      </div>
+      <div class="row justify-content-center">
+        <div class="col-md-10">
           <canvas id = "chart3"></canvas>
         </div>
       </div>
@@ -337,6 +339,8 @@
 <!-- Chart script -->
 <script>
   var ctx = document.getElementById('chart1').getContext('2d');
+  var ctx1 = document.getElementById('chart2').getContext('2d');
+  var ctx2 = document.getElementById('chart3').getContext('2d');
   var chart = new Chart(ctx, {
     type : 'doughnut',
 
@@ -365,6 +369,71 @@
     }
     }
   });
+
+  var chart1 = new Chart(ctx1, {
+    type : 'polarArea',
+
+    // data
+    data: {
+      labels: {{ cp_with_disease_list|safe}},
+      datasets:[{
+        backgroundColor: ['rgb(25,25,112)',
+        'rgb(255,140,0)',
+        'rgb(128,0,128)',
+        'rgb(220,20,60)'],
+        data:{{ cp_with_disease_count|safe }}
+      }],
+    },
+    options: {
+      plugins: {
+        title: {
+            display: true,
+            text: 'People with different chest pain type having heart disease. Values (in %)',
+            weight: 'bold',
+            font: {
+              size: 20
+          }
+        },
+        legend:{
+          position: 'right'
+        }
+    }
+    }
+  });
+
+  var chart2 = new Chart(ctx2, {
+    data: {
+      datasets: [{
+          type: 'line',
+          label: 'With Disease',
+          data: {{ max_rate_with_disease|safe }},
+          fill:true,
+          borderColor: 'rgb(139,0,0)'
+      }, {
+          type: 'line',
+          label: 'Without Disease',
+          data: {{ max_rate_without_disease|safe }},
+          fill:true,
+          borderColor: 'rgb(0,100,0)'
+      }],
+      labels: ['0','20','40','60','80','100','120', '140', '160', '180'],
+  },
+  options: {
+    plugins: {
+      title: {
+          display: true,
+          text: 'Max heart rate achieved with/without heart disease.',
+          weight: 'bold',
+          font: {
+            size: 20
+        }
+      },
+      legend:{
+        position: 'right'
+      }
+  }
+}
+});
 </script>
 
 <!-- End script -->

@@ -2,22 +2,38 @@ from typing import ContextManager
 from django.shortcuts import render
 import pandas as pd
 
-
-
 def index(request):
     return render(request, 'index.html')
 
 
 def heart_pred(request):
     df_train = pd.read_csv(r'..\Datasets\heart.csv')
-    gender_having_Disease = df_train[df_train['target'] == 0].groupby('sex').sum()['target']
+
+    # Gender having disease
+    gender_having_Disease = df_train[df_train['target'] == 1].groupby('sex').count()['target']
     gender_having_Disease = pd.DataFrame({'Sex': gender_having_Disease.index, 'Values': gender_having_Disease.values})
     gender_having_Disease['Sex'].loc[0] = 'Female'
     gender_having_Disease['Sex'].loc[1] = 'Male'
     gender_list = gender_having_Disease['Sex'].values.tolist()
     gender_list_count = gender_having_Disease['Values'].values.tolist()
 
-    context = {'gender_list': gender_list, 'gender_list_count': gender_list_count}
+    # Chest pain type with disease
+    cp_type_with_disease = df_train[df_train['target'] == 1].groupby('cp').count()['target']
+    cp_type_with_disease = pd.DataFrame({'Type': cp_type_with_disease.index, 'Values': cp_type_with_disease.values})
+    cp_type_with_disease['Type'].loc[0] = 'typical angina'
+    cp_type_with_disease['Type'].loc[1] = 'atypical angina'
+    cp_type_with_disease['Type'].loc[2] = 'non- anginal pain'
+    cp_type_with_disease['Type'].loc[3] = 'asymptomatic'
+    total = cp_type_with_disease['Values'].sum()
+    cp_with_disease_list = cp_type_with_disease['Type'].values.tolist()
+    cp_type_with_disease['Values'] = cp_type_with_disease['Values'].div(total).mul(100)
+    cp_with_disease_count = cp_type_with_disease['Values'].values.tolist()
+
+    # Max heart rate achieved
+    max_rate_with_disease = df_train[df_train['target'] == 1]['thalach'].tolist()
+    max_rate_without_disease = df_train[df_train['target'] == 0]['thalach'].tolist()
+
+    context = {'gender_list': gender_list, 'gender_list_count': gender_list_count, 'cp_with_disease_list': cp_with_disease_list, 'cp_with_disease_count': cp_with_disease_count, 'max_rate_with_disease': max_rate_with_disease, 'max_rate_without_disease': max_rate_without_disease}
     return render(request, 'heart_pred.html', context)
 
 def liver_pred(request):
@@ -162,9 +178,9 @@ def get_heart_disease_predictions(age, sex, chest_pain, rest_bp, chol, fast_bp, 
 
     prediction = model.predict([[age, rest_bp, chol, max_hr, st_dep, sex_0, sex_1, chest_pain_type_0, chest_pain_type_1, chest_pain_type_2, chest_pain_type_3, fasting_blood_pressure_0, fasting_blood_pressure_1, rest_ecg_0, rest_ecg_1, rest_ecg_2, exercise_induced_angina_0, exercise_induced_angina_1, slope_0, slope_1, slope_2, num_major_vessels_0, num_major_vessels_1, num_major_vessels_2, num_major_vessels_3, num_major_vessels_4, thal_0, thal_1, thal_2, thal_3]])
 
-    if prediction == 1:
+    if prediction == 0:
         return "You don't have heart disease"
-    elif prediction == 0:
+    elif prediction == 1:
         return "Sorry! You have heart disease. Please consult a doctor."
     else:
         return "error"
