@@ -2,300 +2,208 @@
 <html lang="en">
 
 <head>
-  <title>Pharma &mdash; Colorlib Template</title>
+  <title>Brain Stroke Symptoms and Preventions</title>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
   <link href="https://fonts.googleapis.com/css?family=Rubik:400,700|Crimson+Text:400,400i" rel="stylesheet">
-  <link rel="stylesheet" href="fonts/icomoon/style.css">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.3/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.5.16/css/mdb.min.css" rel="stylesheet">
 
-  <link rel="stylesheet" href="css/bootstrap.min.css">
-  <link rel="stylesheet" href="css/magnific-popup.css">
-  <link rel="stylesheet" href="css/jquery-ui.css">
-  <link rel="stylesheet" href="css/owl.carousel.min.css">
-  <link rel="stylesheet" href="css/owl.theme.default.min.css">
+  {% load static %} 
+  <link rel="stylesheet" href="{% static 'fonts/icomoon/style.css' %}">
+  <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
+  <link rel="stylesheet" href="{% static 'css/magnific-popup.css' %}">
+  <link rel="stylesheet" href="{% static 'css/jquery-ui.css' %}">
+  <link rel="stylesheet" href="{% static 'css/owl.carousel.min.css' %}">
+  <link rel="stylesheet" href="{% static 'css/owl.theme.default.min.css' %}">
 
 
-  <link rel="stylesheet" href="css/aos.css">
+  <link rel="stylesheet" href="{% static 'css/aos.css' %}">
 
-  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="{% static 'css/style.css' %}">
 
+  <style>
+    .card-title{
+      text-transform: uppercase;
+    }
+
+    img{
+      background-repeat: no-repeat;
+      background-size: contain;
+      width: 100%;
+      background-attachment: fixed;
+      background-position: center;
+      margin-top: 20%;
+    }
+
+  </style>
 </head>
 
 <body>
 
-  <div class="site-wrap">
+  <body>
 
-
-    <div class="site-navbar py-2">
-
-      <div class="search-wrap">
-        <div class="container">
-          <a href="#" class="search-close js-search-close"><span class="icon-close2"></span></a>
-          <form action="#" method="post">
-            <input type="text" class="form-control" placeholder="Search keyword and hit enter...">
-          </form>
-        </div>
-      </div>
-
-      <div class="container">
-        <div class="d-flex align-items-center justify-content-between">
-          <div class="logo">
-            <div class="site-logo">
-              <a href="index.html" class="js-logo-clone">Pharma</a>
-            </div>
-          </div>
-          <div class="main-nav d-none d-lg-block">
-            <nav class="site-navigation text-right text-md-center" role="navigation">
-              <ul class="site-menu js-clone-nav d-none d-lg-block">
-                <li><a href="index.html">Home</a></li>
-                <li class="active"><a href="shop.html">Store</a></li>
-                <li class="has-children">
-                  <a href="#">Dropdown</a>
-                  <ul class="dropdown">
-                    <li><a href="#">Supplements</a></li>
-                    <li class="has-children">
-                      <a href="#">Vitamins</a>
-                      <ul class="dropdown">
-                        <li><a href="#">Supplements</a></li>
-                        <li><a href="#">Vitamins</a></li>
-                        <li><a href="#">Diet &amp; Nutrition</a></li>
-                        <li><a href="#">Tea &amp; Coffee</a></li>
-                      </ul>
-                    </li>
-                    <li><a href="#">Diet &amp; Nutrition</a></li>
-                    <li><a href="#">Tea &amp; Coffee</a></li>
-
-                  </ul>
-                </li>
-                <li><a href="about.html">About</a></li>
-                <li><a href="contact.html">Contact</a></li>
-              </ul>
-            </nav>
-          </div>
-          <div class="icons">
-            <a href="#" class="icons-btn d-inline-block js-search-open"><span class="icon-search"></span></a>
-            <a href="cart.html" class="icons-btn d-inline-block bag">
-              <span class="icon-shopping-bag"></span>
-              <span class="number">2</span>
-            </a>
-            <a href="#" class="site-menu-toggle js-menu-toggle ml-3 d-inline-block d-lg-none"><span
-                class="icon-menu"></span></a>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <div class="bg-light py-3">
-      <div class="container">
-        <div class="row">
-          <div class="col-md-12 mb-0"><a href="index.html">Home</a> <span class="mx-2 mb-0">/</span> <strong class="text-black">Store</strong></div>
-        </div>
-      </div>
-    </div>
-
-    <div class="site-section">
-      <div class="container">
-        
-        <div class="row">
-          <div class="col-lg-6">
-            <h3 class="mb-3 h6 text-uppercase text-black d-block">Filter by Price</h3>
-            <div id="slider-range" class="border-primary"></div>
-            <input type="text" name="text" id="amount" class="form-control border-0 pl-0 bg-white" disabled="" />
-          </div>
-          <div class="col-lg-6">
-            <h3 class="mb-3 h6 text-uppercase text-black d-block">Filter by Reference</h3>
-            <button type="button" class="btn btn-secondary btn-md dropdown-toggle px-4" id="dropdownMenuReference"
-              data-toggle="dropdown">Reference</button>
-            <div class="dropdown-menu" aria-labelledby="dropdownMenuReference">
-              <a class="dropdown-item" href="#">Relevance</a>
-              <a class="dropdown-item" href="#">Name, A to Z</a>
-              <a class="dropdown-item" href="#">Name, Z to A</a>
-              <div class="dropdown-divider"></div>
-              <a class="dropdown-item" href="#">Price, low to high</a>
-              <a class="dropdown-item" href="#">Price, high to low</a>
-            </div>
-          </div>
-        </div>
-    
-        <div class="row">
-          <div class="col-sm-6 col-lg-4 text-center item mb-4">
-            <span class="tag">Sale</span>
-            <a href="shop-single.html"> <img src="images/product_01.png" alt="Image"></a>
-            <h3 class="text-dark"><a href="shop-single.html">Bioderma</a></h3>
-            <p class="price"><del>95.00</del> &mdash; $55.00</p>
-          </div>
-          <div class="col-sm-6 col-lg-4 text-center item mb-4">
-            <a href="shop-single.html"> <img src="images/product_02.png" alt="Image"></a>
-            <h3 class="text-dark"><a href="shop-single.html">Chanca Piedra</a></h3>
-            <p class="price">$70.00</p>
-          </div>
-          <div class="col-sm-6 col-lg-4 text-center item mb-4">
-            <a href="shop-single.html"> <img src="images/product_03.png" alt="Image"></a>
-            <h3 class="text-dark"><a href="shop-single.html">Umcka Cold Care</a></h3>
-            <p class="price">$120.00</p>
-          </div>
-    
-          <div class="col-sm-6 col-lg-4 text-center item mb-4">
-    
-            <a href="shop-single.html"> <img src="images/product_04.png" alt="Image"></a>
-            <h3 class="text-dark"><a href="shop-single.html">Cetyl Pure</a></h3>
-            <p class="price"><del>45.00</del> &mdash; $20.00</p>
-          </div>
-          <div class="col-sm-6 col-lg-4 text-center item mb-4">
-            <a href="shop-single.html"> <img src="images/product_05.png" alt="Image"></a>
-            <h3 class="text-dark"><a href="shop-single.html">CLA Core</a></h3>
-            <p class="price">$38.00</p>
-          </div>
-          <div class="col-sm-6 col-lg-4 text-center item mb-4">
-            <span class="tag">Sale</span>
-            <a href="shop-single.html"> <img src="images/product_06.png" alt="Image"></a>
-            <h3 class="text-dark"><a href="shop-single.html">Poo Pourri</a></h3>
-            <p class="price"><del>$89</del> &mdash; $38.00</p>
-          </div>
-
-          <div class="col-sm-6 col-lg-4 text-center item mb-4">
-            <span class="tag">Sale</span>
-            <a href="shop-single.html"> <img src="images/product_01.png" alt="Image"></a>
-            <h3 class="text-dark"><a href="shop-single.html">Bioderma</a></h3>
-            <p class="price"><del>95.00</del> &mdash; $55.00</p>
-          </div>
-          <div class="col-sm-6 col-lg-4 text-center item mb-4">
-            <a href="shop-single.html"> <img src="images/product_02.png" alt="Image"></a>
-            <h3 class="text-dark"><a href="shop-single.html">Chanca Piedra</a></h3>
-            <p class="price">$70.00</p>
-          </div>
-          <div class="col-sm-6 col-lg-4 text-center item mb-4">
-            <a href="shop-single.html"> <img ˀsrc="images/product_03.png" alt="Image"></a>
-            <h3 class="text-dark"><a href="shop-single.html">Umcka Cold Care</a></h3>
-            <p class="price">$120.00</p>
-          </div>
-          
-          <div class="col-sm-6 col-lg-4 text-center item mb-4">
-          
-            <a href="shop-single.html"> <img src="images/product_04.png" alt="Image"></a>
-            <h3 class="text-dark"><a href="shop-single.html">Cetyl Pure</a></h3>
-            <p class="price"><del>45.00</del> &mdash; $20.00</p>
-          </div>
-          <div class="col-sm-6 col-lg-4 text-center item mb-4">
-            <a href="shop-single.html"> <img src="images/product_05.png" alt="Image"></a>
-            <h3 class="text-dark"><a href="shop-single.html">CLA Core</a></h3>
-            <p class="price">$38.00</p>
-          </div>
-          <div class="col-sm-6 col-lg-4 text-center item mb-4">
-            <span class="tag">Sale</span>
-            <a href="shop-single.html"> <img src="images/product_06.png" alt="Image"></a>
-            <h3 class="text-dark"><a href="shop-single.html">Poo Pourri</a></h3>
-            <p class="price"><del>$89</del> &mdash; $38.00</p>
-          </div>
-        </div>
-        <div class="row mt-5">
-          <div class="col-md-12 text-center">
-            <div class="site-block-27">
-              <ul>
-                <li><a href="#">&lt;</a></li>
-                <li class="active"><span>1</span></li>
-                <li><a href="#">2</a></li>
-                <li><a href="#">3</a></li>
-                <li><a href="#">4</a></li>
-                <li><a href="#">5</a></li>
-                <li><a href="#">&gt;</a></li>
-              </ul>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    
-    <div class="site-section bg-secondary bg-image" style="background-image: url('images/bg_2.jpg');">
-      <div class="container">
-        <div class="row align-items-stretch">
-          <div class="col-lg-6 mb-5 mb-lg-0">
-            <a href="#" class="banner-1 h-100 d-flex" style="background-image: url('images/bg_1.jpg');">
-              <div class="banner-1-inner align-self-center">
-                <h2>Pharma Products</h2>
-                <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Molestiae ex ad minus rem odio voluptatem.
-                </p>
+    <div class="site-wrap fixed-top">
+  
+      <div class="site-navbar py-2">
+        <div class="container-fluid">
+          <div class="d-flex align-items-center justify-content-between">
+            <div class="logo">
+              <div class="site-logo">
+                <a href="/" class="js-logo-clone">HEALTHCARE APP</a>
               </div>
-            </a>
-          </div>
-          <div class="col-lg-6 mb-5 mb-lg-0">
-            <a href="#" class="banner-1 h-100 d-flex" style="background-image: url('images/bg_2.jpg');">
-              <div class="banner-1-inner ml-auto  align-self-center">
-                <h2>Rated by Experts</h2>
-                <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Molestiae ex ad minus rem odio voluptatem.
-                </p>
-              </div>
-            </a>
+            </div>
+            <div class="main-nav d-none d-lg-block">
+              <nav class="site-navigation text-right text-md-center" role="navigation">
+                <ul class="site-menu js-clone-nav d-none d-lg-block">
+                  <li><a href="/">Home</a></li>
+                  <li><a href="heart_pred">Heart Disease</a></li>
+                  <li><a href="liver_pred">Liver Disease</a></li>
+                  <li><a href="stroke_pred">Brain Stroke</a></li>
+                  <li class="has-children">
+                    <a href="#">Symptoms/ Preventions</a>
+                    <ul class="dropdown">
+                      <li><a href="heart_remedies">Heart Disease</a></li>
+                      <li><a href="liver_remedies">Liver Disease</a></li>
+                      <li><a href="brain_remedies">Brain Stroke</a></li>
+                      
+                    </ul>
+                  </li>
+                </ul>
+              </nav>
+            </div>
+            <div class="icons">
+              <!-- <a href="#" class="icons-btn d-inline-block" data-toggle="modal" data-target="#login"><b>LOG IN/ SIGN UP</b>
+                <i class="icon-input"></i>
+              </a> -->
+              <a href="#" class="site-menu-toggle js-menu-toggle ml-3 d-inline-block d-lg-none"><span
+                  class="icon-menu"></span></a>
+            </div>
+            
           </div>
         </div>
       </div>
-    </div>
-
-
-    <footer class="site-footer">
-      <div class="container">
-        <div class="row">
-          <div class="col-md-6 col-lg-3 mb-4 mb-lg-0">
-
-            <div class="block-7">
-              <h3 class="footer-heading mb-4">About Us</h3>
-              <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Eius quae reiciendis distinctio voluptates
-                sed dolorum excepturi iure eaque, aut unde.</p>
-            </div>
-
-          </div>
-          <div class="col-lg-3 mx-auto mb-5 mb-lg-0">
-            <h3 class="footer-heading mb-4">Quick Links</h3>
-            <ul class="list-unstyled">
-              <li><a href="#">Supplements</a></li>
-              <li><a href="#">Vitamins</a></li>
-              <li><a href="#">Diet &amp; Nutrition</a></li>
-              <li><a href="#">Tea &amp; Coffee</a></li>
-            </ul>
-          </div>
-
-          <div class="col-md-6 col-lg-3">
-            <div class="block-5 mb-5">
-              <h3 class="footer-heading mb-4">Contact Info</h3>
-              <ul class="list-unstyled">
-                <li class="address">203 Fake St. Mountain View, San Francisco, California, USA</li>
-                <li class="phone"><a href="tel://23923929210">+2 392 3929 210</a></li>
-                <li class="email">emailaddress@domain.com</li>
-              </ul>
-            </div>
-
-
-          </div>
-        </div>
-        <div class="row pt-5 mt-5 text-center">
-          <div class="col-md-12">
-            <p>
-              <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
-              Copyright &copy;
-              <script>document.write(new Date().getFullYear());</script> All rights reserved | This template is made
-              with <i class="icon-heart" aria-hidden="true"></i> by <a href="https://colorlib.com" target="_blank"
-                class="text-primary">Colorlib</a>
-              <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
-            </p>
-          </div>
-
-        </div>
-      </div>
-    </footer>
   </div>
-
-  <script src="js/jquery-3.3.1.min.js"></script>
-  <script src="js/jquery-ui.js"></script>
-  <script src="js/popper.min.js"></script>
-  <script src="js/bootstrap.min.js"></script>
-  <script src="js/owl.carousel.min.js"></script>
-  <script src="js/jquery.magnific-popup.min.js"></script>
-  <script src="js/aos.js"></script>
-
-  <script src="js/main.js"></script>
-
-</body>
+    <div class="container-fluid">
+      <div class="row">
+      <div class="col-md-8">
+        <div class="container">
+          <blockquote class="blockquote bq-danger">
+            <p class="bq-title text-uppercase"><b>Factors that put people at increased risk for heart disease are</b></p>
+            <p class="text-black text-lg">
+              Smoking, High Blood Pressure, High Cholesterol, Diabetes, Family history of heart problems especially heart attacks and strokes, Obesity
+            </p>
+          </blockquote>
+        </div>
+  
+        <br>
+  
+        <div class="container-fluid">
+          <h4 style="color: black;"><b>HEART DISEASE SYMPTOMS:</b> </h4>
+          <div class="card-columns">
+          <div class="card text-black success-color text-center mt-2 mb-3">
+            <div class="card-body text-white">
+              <h5 class="card-title"><b>Chest Pain (Angina)</b></h5>
+              <p class="card-text text-white">It is described a crushing pain or heaviness in the center of the chest with radiation of the pain to the arm (usually the left) or jaw. </p>
+            </div>
+          </div>
+          <div class="card light-blue accent-4  text-center mt-2 mb-3">
+            <div class="card-body text-white">
+              <h5 class="card-title"><b>difficulty breathing, fatigue and light headedness</b></h5>
+              <p class="card-text text-white">Women, people who have diabetes, and the elderly may have different pain perceptions and may complain of overwhelming fatigue and weakness or a change in their ability to perform routine daily activities like walking, climbing steps, or doing household chores.</p>
+            </div>
+          </div>
+          <div class="card blue warning-color text-black text-center mt-2 mb-3">
+            <div class="card-body text-white">
+              <h5 class="card-title"><b>swelling due to fluid retention, or edema</b></h5>
+              <p class="card-text text-white"></p>
+            </div>
+          </div>
+          
+          </div>
+        </div>
+      </div>
+  
+      <div class="col-md-4">
+        <img src = "{% static 'images/brain.png' %}">
+      </div>
+    </div>
+    </div>
+  
+      <div class="container-fluid">
+        <h4 style="color: black;"><b>HOW TO PREVENT HEART DISEASE?</b> </h4>
+        <div class="card-columns">
+          <div class="card blue warning-color text-black text-center mt-2 mb-3">
+            <div class="card-body text-white">
+              <h5 class="card-title"><b>Eating a balanced diet</b></h5>
+              <p class="card-text text-white">Opt for a heart-healthy diet that is rich in fiber and favors whole grains and fresh fruits and vegetables. Also, limit the intake of processed foods and added fat, salt, and sugar.</p>
+            </div>
+          </div>
+          <div class="card light-blue accent-4  text-center mt-2 mb-3">
+            <div class="card-body text-white">
+              <h5 class="card-title"><b>Maintaining a moderate body weight</b></h5>
+              <p class="card-text text-white">Being overweight especially around your middle increases your risk of heart disease. Excess weight can lead to conditions that increase your chances of developing heart disease, including high blood pressure, high cholesterol and type 2 diabetes.</p>
+            </div>
+          </div>
+        <div class="card text-black success-color text-center mt-2 mb-3">
+          <div class="card-body text-white">
+            <h5 class="card-title"><b>Exercising regularly</b></h5>
+            <p class="card-text text-white">This can help strengthen the heart and circulatory system, reduce cholesterol, and maintain blood pressure.</p>
+          </div>
+        </div>
+        
+  
+        
+        <div class="card blue warning-color text-black text-center mt-2 mb-3">
+          <div class="card-body text-white">
+            <h5 class="card-title"><b>Get good quality sleep</b></h5>
+            <p class="card-text text-white">A lack of sleep can do more than leave you yawning; it can harm your health. People who don't get enough sleep have a higher risk of obesity, high blood pressure, heart attack, diabetes and depression</p>
+          </div>
+        </div>
+        <div class="card light-blue accent-4  text-center mt-2 mb-3">
+          <div class="card-body text-white">
+            <h5 class="card-title"><b>Get regular health screenings</b></h5>
+            <p class="card-text text-white">Seek treatment for conditions that affect heart health, such as high blood pressure, obesity, and diabetes.</p>
+          </div>
+        </div>
+      <div class="card text-black success-color text-center mt-2 mb-3">
+        <div class="card-body text-white">
+          <h5 class="card-title"><b>Quitting smoking</b></h5>
+          <p class="card-text text-white">Smoking is a major risk factor for heart and cardiovascular conditions.</p>
+        </div>
+      </div>
+      
+      
+    </div>
+      </div>
+     
+      
+  </body>
+  
+  <script src="{% static 'js/jquery-3.3.1.min.js' %}"></script>
+    <script src="{% static 'js/jquery-ui.js' %}"></script>
+    <script src="{% static 'js/popper.min.js' %}"></script>
+    <script src="{% static 'js/bootstrap.min.js' %}"></script>
+    <script src="{% static 'js/owl.carousel.min.js' %}"></script>
+    <script src="{% static 'js/jquery.magnific-popup.min.js' %}"></script>
+    <script src="{% static 'js/aos.js' %}"></script> 
+  
+    <script src="{% static 'js/main.js' %}"></script> 
+  
+    <!-- jQuery -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  
+    <!-- Popper.js -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js"></script>
+  
+    <!-- Bootstrap -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.3/js/bootstrap.min.js"></script>
+  
+    <!-- Material Design for Bootstrap -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.5.16/js/mdb.min.js"></script>
+</body>  
 
 </html>
