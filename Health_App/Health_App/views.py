@@ -430,3 +430,13 @@ def liver_disease_result(request):
 
     result = get_liver_disease_predictions(age, gender, total_bil, direct_bil, alkaline_phos, alamine_amino, aspartate_amino, total_pro, albumin, albumin_ratio)
     return render(request, 'liver_pred.html', {'result': result})
+
+
+def heart_remedies(request):
+    return render(request, 'heart_rems.html')
+
+def liver_remedies(request):
+    return render(request, 'liver_rems.html')
+
+def brain_remedies(request):
+    return render(request, 'brain_rems.html')

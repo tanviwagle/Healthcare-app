@@ -26,4 +26,7 @@ urlpatterns = [
     path('heart_disease_result', views.heart_disease_result, name='heart_disease_result'),
     path('brain_stroke_result', views.brain_stroke_result, name='brain_stroke_result'),
     path('liver_disease_result', views.liver_disease_result, name='liver_disease_result'),
+    path('heart_remedies', views.heart_remedies, name='heart_remedies'),
+    path('liver_remedies', views.liver_remedies, name='liver_remedies'),
+    path('brain_remedies', views.brain_remedies, name='brain_remedies'),
 ]

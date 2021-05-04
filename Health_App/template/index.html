@@ -30,7 +30,7 @@
 
 <body>
 
-  <div class="site-wrap">
+  <div class="site-wrap fixed-top">
 
 
     <div class="site-navbar py-2">
@@ -51,9 +51,9 @@
                 <li class="has-children">
                   <a href="#">Remedies/ Preventions</a>
                   <ul class="dropdown">
-                    <li><a href="#">Heart Disease</a></li>
-                    <li><a href="#">Liver Disease</a></li>
-                    <li><a href="#">Brain Stroke</a></li>
+                    <li><a href="heart_remedies">Heart Disease</a></li>
+                    <li><a href="liver_remedies">Liver Disease</a></li>
+                    <li><a href="brain_remedies">Brain Stroke</a></li>
                     
                   </ul>
                 </li>
@@ -61,9 +61,9 @@
             </nav>
           </div>
           <div class="icons">
-            <a href="#" class="icons-btn d-inline-block" data-toggle="modal" data-target="#login"><b>LOG IN/ SIGN UP</b>
+            <!-- <a href="#" class="icons-btn d-inline-block" data-toggle="modal" data-target="#login"><b>LOG IN/ SIGN UP</b>
               <i class="icon-input"></i>
-            </a>
+            </a> -->
             <a href="#" class="site-menu-toggle js-menu-toggle ml-3 d-inline-block d-lg-none"><span
                 class="icon-menu"></span></a>
           </div>
@@ -346,13 +346,13 @@
   </div>
 
   <!-- Login/ Sign Up Modal -->
-<div class="modal fade" id="login" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+<!-- <div class="modal fade" id="login" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
   <div class="modal-dialog cascading-modal" role="document">
 
     <div class="modal-content">
       <div class="modal-c-tabs">
 
-        <!-- Nav tabs -->
+        Nav tabs
         <ul class="nav nav-tabs md-tabs tabs-2 light-blue darken-3" role="tablist">
           <li class="nav-item">
             <a class="nav-link active" data-toggle="tab" href="#login_tab" role="tab"><i class="fa fa-user mr-1"></i>
@@ -364,9 +364,9 @@
           </li>
         </ul>
 
-        <!-- Tab panels -->
+        Tab panels
         <div class="tab-content">
-          <!-- Login Tab -->
+          Login Tab
           <div class="tab-pane fade in show active" id="login_tab" role="tabpanel">
 
             <div class="modal-body mb-1">
@@ -388,7 +388,7 @@
 
           </div>
 
-          <!-- Sign Up Tab -->
+          Sign Up Tab
           <div class="tab-pane fade" id="signup_tab" role="tabpanel">
 
             <div class="modal-body">
@@ -421,8 +421,9 @@
       </div>
     </div>
   </div>
-</div>
-  <!-- Modal end -->
+</div> -->
+<!-- Modal end -->
+
 
 
   <script src="{% static 'js/jquery-3.3.1.min.js' %}"></script>
