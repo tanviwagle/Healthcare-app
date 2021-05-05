@@ -503,14 +503,14 @@ a {
       margin-top: 10%;
       position: absolute; } }
   .site-blocks-cover h1 {
-    font-size: 50px;
+    font-size: 30px;
     font-weight: 900;
     color: #fff;
     margin-bottom: 30px;
     text-transform: uppercase; }
     @media (min-width: 768px) {
       .site-blocks-cover h1 {
-        font-size: 70px; } }
+        font-size: 30px; } }
   .site-blocks-cover p {
     color: #fff;
     font-size: 20px;

@@ -5,8 +5,7 @@ import pandas as pd
 def index(request):
     return render(request, 'index.html')
 
-
-def heart_pred(request):
+def heart_dict():
     df_train = pd.read_csv(r'..\Datasets\heart.csv')
 
     # Gender having disease
@@ -41,9 +40,10 @@ def heart_pred(request):
     max_rate_without_disease_count = max_rate_without_disease['Values'].values.tolist()
 
     context = {'gender_list': gender_list, 'gender_list_count': gender_list_count, 'cp_with_disease_list': cp_with_disease_list, 'cp_with_disease_count': cp_with_disease_count, 'max_rate_with_disease_names':max_rate_with_disease_names, 'max_rate_with_disease_count': max_rate_with_disease_count, 'max_rate_without_disease_names': max_rate_without_disease_names, 'max_rate_without_disease_count': max_rate_without_disease_count}
-    return render(request, 'heart_pred.html', context)
+    return context
 
-def liver_pred(request):
+
+def liver_dict():
     df_train = pd.read_csv(r'..\Datasets\indian_liver_patient.csv')
 
     # Age
@@ -65,9 +65,9 @@ def liver_pred(request):
     gender_names = ['Male', 'Female']
 
     context = {'age_with_disease_names': age_with_disease_names, 'age_with_disease_count': age_with_disease_count,'age_without_disease_names': age_without_disease_names, 'age_without_disease_count': age_without_disease_count, 'gender_with_disease': gender_with_disease, 'gender_without_disease': gender_without_disease, 'gender_names': gender_names}
-    return render(request, 'liver_pred.html', context)
+    return context
 
-def stroke_pred(request):
+def stroke_dict():
     df_train = pd.read_csv(r'..\Datasets\healthcare-dataset-stroke-data.csv')
     
     # Gender
@@ -104,6 +104,19 @@ def stroke_pred(request):
 
 
     context = {'gender_with_disease':gender_with_disease, 'gender_without_disease': gender_without_disease, 'gender_names': gender_names, 'not_married_work_type_names':not_married_work_type_names, 'not_married_with_disease_count': not_married_with_disease_count, 'married_work_type_names': married_work_type_names, 'married_with_disease_count': married_with_disease_count, 'res_had_stroke': res_had_stroke, 'stroke_res_names': stroke_res_names, 'res_never_had_stroke': res_never_had_stroke, 'smoke_status_names': smoke_status_names, 'smoke_had_stroke': smoke_had_stroke, 'smoke_no_stroke': smoke_no_stroke}
+    return context
+
+
+def heart_pred(request):
+    context = heart_dict()
+    return render(request, 'heart_pred.html', context)
+
+def liver_pred(request):
+    context = liver_dict()
+    return render(request, 'liver_pred.html', context)
+
+def stroke_pred(request):
+    context = stroke_dict()
     return render(request, 'stroke_pred.html', context)
 
 ## Heart Disease
@@ -266,8 +279,8 @@ def heart_disease_result(request):
     thal=str(request.GET['thal'])
 
     result = get_heart_disease_predictions(age, sex, chest_pain, rest_bp, chol, fast_bp, rest_ecg, max_hr, exercise_induced_angina, st_dep, slope, num_major_vessel, thal)
-
-    return render(request, 'heart_pred.html', {'result': result})
+    context = heart_dict()
+    return render(request, 'heart_pred.html', {'result': result} | context)
 
 ## Brain Stroke
 
@@ -389,8 +402,8 @@ def brain_stroke_result(request):
     smoking_status = str(request.GET['smoke_st'])
 
     result = get_brain_stroke_predictions(gender, age, hypertension, heart_dis, married, work_type, res_type, avg_glucose_level, bmi, smoking_status)
-
-    return render(request, 'stroke_pred.html', {'result': result})
+    context = stroke_dict()
+    return render(request, 'stroke_pred.html', {'result': result}| context)
 
 
 ## Liver Disease
@@ -429,7 +442,8 @@ def liver_disease_result(request):
     albumin_ratio = float(request.GET['albumin_ratio'])
 
     result = get_liver_disease_predictions(age, gender, total_bil, direct_bil, alkaline_phos, alamine_amino, aspartate_amino, total_pro, albumin, albumin_ratio)
-    return render(request, 'liver_pred.html', {'result': result})
+    context = stroke_dict()
+    return render(request, 'liver_pred.html', {'result': result} |context)
 
 
 def heart_remedies(request):
