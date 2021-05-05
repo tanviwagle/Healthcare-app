@@ -4,7 +4,7 @@ body {
   color: #8c92a0;
   font-weight: 300;
   font-size: 16px; 
-  padding-top: 70px;
+  padding-top: 80px;
 }
 
   abbr[title] {
@@ -503,14 +503,14 @@ a {
       margin-top: 10%;
       position: absolute; } }
   .site-blocks-cover h1 {
-    font-size: 30px;
+    font-size: 40px;
     font-weight: 900;
-    color: #fff;
-    margin-bottom: 30px;
+    color: rgb(251, 255, 0);
+    margin-bottom: 20px;
     text-transform: uppercase; }
     @media (min-width: 768px) {
       .site-blocks-cover h1 {
-        font-size: 30px; } }
+        font-size: 40px; } }
   .site-blocks-cover p {
     color: #fff;
     font-size: 20px;
@@ -526,7 +526,11 @@ a {
       .site-blocks-cover.inner-page .site-block-cover-content {
         margin-top: 30%; } }
   .site-blocks-cover .sub-title {
-    color: #fff; }
+    color: rgb(251, 255, 0);
+    font-size: 18px; 
+    font-weight: 700;
+  }
+
   @media (max-width: 991.98px) {
     .site-blocks-cover .img-1 {
       max-width: 400px;
@@ -1046,90 +1050,3 @@ a {
   -ms-transform: rotate(-90deg) translateX(-100%) translateY(-70%);
   transform: rotate(-90deg) translateX(-100%) translateY(-70%); }
 
-.banner-wrap {
-  background: #74d12b;
-  border-radius: 4px; }
-  .banner-wrap a {
-    padding: 30px;
-    display: block;
-    text-align: center; }
-    .banner-wrap a h5 {
-      font-size: 2rem;
-      font-style: italic;
-      margin-bottom: 10px; }
-    .banner-wrap a h5, .banner-wrap a p {
-      color: #fff; }
-    .banner-wrap a p {
-      color: #fff;
-      font-size: 1.4rem; }
-      .banner-wrap a p strong {
-        font-size: .9rem;
-        display: block; }
-
-.banner-1 {
-  background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat;
-  padding: 20px;
-  display: block;
-  min-height: 300px;
-  border-radius: 4px;
-  -webkit-box-shadow: 0 10px 30px -15px rgba(0, 0, 0, 0.2);
-  box-shadow: 0 10px 30px -15px rgba(0, 0, 0, 0.2);
-  -webkit-transition: .3s all ease;
-  -o-transition: .3s all ease;
-  transition: .3s all ease;
-  position: relative;
-  top: 0; }
-  .banner-1:hover {
-    top: -10px;
-    -webkit-box-shadow: 0 10px 30px -15px rgba(0, 0, 0, 0.4);
-    box-shadow: 0 10px 30px -15px rgba(0, 0, 0, 0.4); }
-  .banner-1 .banner-1-inner {
-    width: 50%; }
-    .banner-1 .banner-1-inner h2 {
-      color: #000;
-      text-transform: uppercase;
-      font-weight: 900; }
-    .banner-1 .banner-1-inner p {
-      color: rgba(0, 0, 0, 0.5);
-      font-size: 1.2rem; }
-
-.testimony blockquote p {
-  color: #000;
-  font-family: "Crimson Text", serif;
-  font-size: 1.3rem;
-  line-height: 1.5;
-  font-style: italic; }
-
-.bg-image {
-  background-size: cover;
-  position: relative; }
-  .bg-image:after {
-    content: "";
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background: rgba(81, 234, 234, 0.9);
-    z-index: 1; }
-  .bg-image > .container {
-    position: relative;
-    z-index: 2; }
-
-.section-overlap {
-  margin-top: -150px; }
-
-.custom-pill .nav-item {
-  margin-right: 4px; }
-  .custom-pill .nav-item a {
-    background: #f4f4f4;
-    color: #000 !important; }
-
-.custom-table th {
-  color: #000;
-  font-weight: normal; }
-
-.custom-table td {
-  color: #000; }

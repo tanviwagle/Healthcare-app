@@ -258,7 +258,7 @@ def get_heart_disease_predictions(age, sex, chest_pain, rest_bp, chol, fast_bp, 
     if prediction == 0:
         return "You don't have heart disease"
     elif prediction == 1:
-        return "Sorry! You have heart disease. Please consult a doctor."
+        return "Sorry! You may have heart disease. Please consult a doctor."
     else:
         return "error"
 
@@ -383,9 +383,9 @@ def get_brain_stroke_predictions(gender, age, hypertension, heart_dis, married, 
     prediction = model.predict([[age, hypertension, heart_dis, avg_glucose_level, bmi, gender_Female, gender_Male, ever_married_No, ever_married_Yes, work_type_Govt_job, work_type_Never_worked, work_type_Private, work_type_Self_employed, work_type_children, Residence_type_Rural, Residence_type_Urban, smoking_status_Unknown, smoking_status_formerly_smoked, smoking_status_never_smoked, smoking_status_smokes]])
 
     if prediction == 0:
-        return "You don't have heart disease"
+        return "You don't have chances of getting brain stroke"
     elif prediction == 1:
-        return "Sorry! You have heart disease. Please consult a doctor."
+        return "Sorry! You may have chances of getting brain stroke. Please consult a doctor."
     else:
         return "error"
 
@@ -423,9 +423,9 @@ def get_liver_disease_predictions(age, gender, total_bil, direct_bil, alkaline_p
     prediction = model.predict([[age, total_bil, direct_bil, alkaline_phos, alamine_amino, aspartate_amino, total_pro, albumin, albumin_ratio, Gender_Female, Gender_Male]])
 
     if prediction == 2:
-        return "You don't have heart disease"
+        return "You don't have liver disease"
     elif prediction == 1:
-        return "Sorry! You have heart disease. Please consult a doctor."
+        return "Sorry! You may have liver disease. Please consult a doctor."
     else:
         return "error"
 
@@ -442,7 +442,7 @@ def liver_disease_result(request):
     albumin_ratio = float(request.GET['albumin_ratio'])
 
     result = get_liver_disease_predictions(age, gender, total_bil, direct_bil, alkaline_phos, alamine_amino, aspartate_amino, total_pro, albumin, albumin_ratio)
-    context = stroke_dict()
+    context = liver_dict()
     return render(request, 'liver_pred.html', {'result': result} |context)
 
 
