@@ -503,14 +503,14 @@ a {
       margin-top: 10%;
       position: absolute; } }
   .site-blocks-cover h1 {
-    font-size: 30px;
+    font-size: 40px;
     font-weight: 900;
-    color: #fff;
-    margin-bottom: 30px;
+    color: rgb(251, 255, 0);
+    margin-bottom: 20px;
     text-transform: uppercase; }
     @media (min-width: 768px) {
       .site-blocks-cover h1 {
-        font-size: 30px; } }
+        font-size: 40px; } }
   .site-blocks-cover p {
     color: #fff;
     font-size: 20px;
@@ -526,7 +526,11 @@ a {
       .site-blocks-cover.inner-page .site-block-cover-content {
         margin-top: 30%; } }
   .site-blocks-cover .sub-title {
-    color: #fff; }
+    color: rgb(251, 255, 0);
+    font-size: 18px; 
+    font-weight: 700;
+  }
+
   @media (max-width: 991.98px) {
     .site-blocks-cover .img-1 {
       max-width: 400px;
