@@ -13,6 +13,9 @@ def heart_dict():
     gender_having_Disease = pd.DataFrame({'Sex': gender_having_Disease.index, 'Values': gender_having_Disease.values})
     gender_having_Disease['Sex'].loc[0] = 'Female'
     gender_having_Disease['Sex'].loc[1] = 'Male'
+    total = gender_having_Disease['Values'].sum()
+    gender_having_Disease['Values'] = gender_having_Disease['Values'].div(total).mul(100)
+    gender_having_Disease['Values'] = gender_having_Disease['Values'].round(2)
     gender_list = gender_having_Disease['Sex'].values.tolist()
     gender_list_count = gender_having_Disease['Values'].values.tolist()
 
@@ -26,6 +29,7 @@ def heart_dict():
     total = cp_type_with_disease['Values'].sum()
     cp_with_disease_list = cp_type_with_disease['Type'].values.tolist()
     cp_type_with_disease['Values'] = cp_type_with_disease['Values'].div(total).mul(100)
+    cp_type_with_disease['Values'] = cp_type_with_disease['Values'].round(2)
     cp_with_disease_count = cp_type_with_disease['Values'].values.tolist()
 
     # Max heart rate achieved

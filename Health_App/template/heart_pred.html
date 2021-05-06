@@ -4,6 +4,7 @@
 <head>
   <title>Heart Disease</title>
   <meta charset="utf-8">
+  
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
   <link href="https://fonts.googleapis.com/css?family=Rubik:400,700|Crimson+Text:400,400i" rel="stylesheet">
@@ -27,11 +28,7 @@
   <link rel="stylesheet" href="{% static 'css/style.css' %}">
   <!-- Chart.js -->
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.2.0/chart.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels"></script>
- 
-
+  
 
 </head>
 
@@ -111,20 +108,28 @@
   {% endif %}
 </div>
 
-    <div class="container">
-      <abbr title="Statistical Plots"><h3 style="color: black;"><b>Stats: </b></h3></abbr>
-      <hr>
-      <div class="row justify-content-center">
-        <div class="col-md-5">
-          <canvas id = "chart1"></canvas>
-        </div>
-        <div class="col-md-5">
-          <canvas id = "chart2"></canvas>
-        </div> 
-      </div>
-      <div class="row justify-content-center">
+    <div class="container-fluid justify-content-center">
+      <div class = "row justify-content-center">
         <div class="col-md-10">
-          <canvas id = "chart3"></canvas>
+          <abbr title="Statistical Plots"><h3 style="color: black;"><b>Stats: </b></h3></abbr>
+          <hr>
+        </div>
+        <div class="col-md-10">
+          <div class="row justify-content-center">
+            <div class="col-md-5">
+              <canvas id = "chart1"></canvas>
+            </div>
+            <div class="col-md-5">
+              <canvas id = "chart2"></canvas>
+            </div> 
+          </div>
+        </div>
+        <div class="col-md-10">
+          <div class="row justify-content-center">
+            <div class="col-md-10">
+              <canvas id = "chart3"></canvas>
+            </div>
+          </div>
         </div>
       </div>
     </div>
@@ -346,8 +351,9 @@
   var ctx = document.getElementById('chart1').getContext('2d');
   var ctx1 = document.getElementById('chart2').getContext('2d');
   var ctx2 = document.getElementById('chart3').getContext('2d');
+  
   var chart = new Chart(ctx, {
-    type : 'pie',
+    type : 'doughnut',
 
     // data
     data: {
@@ -358,29 +364,54 @@
         data:{{ gender_list_count|safe }}
       }],
     },
+    
     options: {
-      responsive: true,
+      
+      animation:{
+        animateScale: true
+      },
       plugins: {
+        tooltip:{
+          bodyFont:{
+            size: 20,
+            weight: 'bold',
+          },
+          
+          displayColors: true,
+        },
         title: {
             display: true,
-            text: 'People having Heart Disease',
+            text: 'People having Heart Disease. Values (in %)',
             weight: 'bold',
             font: {
               size: 20
           }
         },
         legend:{
-          position: 'right'
-        },
-        datalabels:{
-          color:'#fff',
+          position: 'right',
+          labels:{
+            font:{
+              size: 18
+            }
+          }
+          
         }
+        
     }
     }
   });
 
+  const footer = (tooltipItems) => {
+    let sum = 0;
+  
+    tooltipItems.forEach(function(tooltipItem) {
+      sum += tooltipItem.parsed.y;
+    });
+    return 'Total people: ' + sum;
+  };
+
   var chart1 = new Chart(ctx1, {
-    type : 'polarArea',
+    type : 'pie',
 
     // data
     data: {
@@ -394,7 +425,18 @@
       }],
     },
     options: {
+      animation:{
+        animateScale: true
+      },
       plugins: {
+        tooltip:{
+          bodyFont:{
+            size: 18,
+            weight: 'bold',
+          },
+          
+          displayColors: true,
+        },
         title: {
             display: true,
             text: 'People with different chest pain type having heart disease. Values (in %)',
@@ -404,7 +446,13 @@
           }
         },
         legend:{
-          position: 'right'
+          position: 'right',
+          labels:{
+            font:{
+              size: 18,
+              color: 'black'
+            }
+          }
         }
     }
     }
@@ -428,6 +476,10 @@
       labels: {{ max_rate_with_disease_names|safe }},
   },
   options: {
+    interaction: {
+      intersect: false,
+      mode: 'index',
+    },
     plugins: {
       title: {
           display: true,
@@ -438,9 +490,71 @@
         }
       },
       legend:{
-        position: 'bottom'
+        position: 'bottom',
+        labels:{
+          font:{
+            size: 18
+          }
+        }
+      },
+      tooltip: {
+        callbacks: {
+          footer: footer,
+        },
+        bodyFont:{
+          size: 18,
+          weight: 'bold',
+        },
+        titleFont:{
+          size: 18,
+          weight: 'bold',
+        },
+        footerFont:{
+          size: 18,
+          weight: 'bold',
+        },
+        
+        displayColors: true,
       }
-  }
+  },
+    scales: {
+      xAxes: [{
+        beginAtZero: true,
+        ticks: {
+           autoSkip: false
+        }
+    }],
+      x: {
+        display: true,
+        title: {
+          display: true,
+          text: 'Max. Heart Rate',
+          color: '#000',
+          font: {
+            family: 'Comic Sans MS',
+            size: 20,
+            weight: 'bold',
+            lineHeight: 1.2,
+          },
+          padding: {top: 0, left: 0, right: 0, bottom: 20}
+        }
+      },
+      y: {
+        display: true,
+        title: {
+          display: true,
+          text: 'Count',
+          color: '#000',
+          font: {
+            family: 'Comic Sans MS',
+            size: 20,
+            style: 'bold',
+            lineHeight: 1.2
+          },
+          padding: {top: 30, left: 0, right: 0, bottom: 0}
+        }
+      }
+    }
 }
 });
 </script>
