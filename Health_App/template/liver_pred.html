@@ -89,21 +89,21 @@
       {% if "don't" in result %}
         <div class='alert alert-success alert-dismissible text-center'>
           <h3 class="alert-heading"><b>Predictions</b></h3>
-        <a href='#' class='close' data-dismiss='alert' aria-label='close'>&times;</a>
-        <h4>{{ result }}</h4>
-        <h5 class="text-lg"><a href="liver_remedies"><u>View Symptoms and Preventions</u></a></h5>
-        <br>
-        <h5><b>** Note : Accuracy of predictions: {{ score }} %</b></h5>
+          <a href='#' class='close' data-dismiss='alert' aria-label='close'>&times;</a>
+          <h4>{{ result }}</h4>
+          <h5 class="text-lg"><a href="liver_remedies"><u>View Symptoms and Preventions</u></a></h5>
+          <br>
+          <h5><b>** Note : Accuracy of predictions: {{ score }} %</b></h5>
         </div>    
       {% endif %}
       {% if "don't" not in result %}
         <div class='alert alert-danger alert-dismissible text-center'>
           <h3 class="alert-heading"><b>Predictions</b></h3>
-        <a href='#' class='close' data-dismiss='alert' aria-label='close'>&times;</a>
-        <h4>{{ result }}</h4>
-        <h5 class="text-lg"><a href="liver_remedies"><u>View Symptoms and Preventions</u></a></h5>
-        <br>
-        <h5><b>** Note : Accuracy of predictions: {{ score }} %</b></h5>
+          <a href='#' class='close' data-dismiss='alert' aria-label='close'>&times;</a>
+          <h4>{{ result }}</h4>
+          <h5 class="text-lg"><a href="liver_remedies"><u>View Symptoms and Preventions</u></a></h5>
+          <br>
+          <h5><b>** Note : Accuracy of predictions: {{ score }} %</b></h5>
         </div>    
       {% endif %}
     {% endif %}
@@ -455,6 +455,14 @@ aria-hidden="true">
           },
           callbacks: {
             footer: footer1,
+          },
+          titleFont:{
+            size: 18,
+            weight: 'bold',
+          },
+          footerFont:{
+            size: 18,
+            weight: 'bold',
           },
           
           displayColors: true,

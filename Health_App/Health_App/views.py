@@ -1,6 +1,7 @@
 from typing import ContextManager
 from django.shortcuts import render
 import pandas as pd
+import numpy as np
 
 def index(request):
     return render(request, 'index.html')
@@ -290,8 +291,9 @@ def heart_disease_result(request):
 
 def get_brain_stroke_predictions(gender, age, hypertension, heart_dis, married, work_type, res_type, avg_glucose_level, bmi, smoking_status):
     import pickle
-    model = pickle.load(open("C:\\Users\\Wagle\\Desktop\\MCA\\SEM 6\\Internal Project\\Health_App\\Health_App\\Stroke_Prediction.sav", "rb"))
-    
+    model, score = pickle.load(open("C:\\Users\\Wagle\\Desktop\\MCA\\SEM 6\\Internal Project\\Health_App\\Health_App\\Stroke_Prediction.sav", "rb"))
+    score = np.round(score, decimals=2)
+
     # Gender
     if gender == 'Male':
         gender_Male = 1
@@ -383,13 +385,13 @@ def get_brain_stroke_predictions(gender, age, hypertension, heart_dis, married, 
         smoking_status_never_smoked = 0
         smoking_status_smokes = 0
 
-
-    prediction = model.predict([[age, hypertension, heart_dis, avg_glucose_level, bmi, gender_Female, gender_Male, ever_married_No, ever_married_Yes, work_type_Govt_job, work_type_Never_worked, work_type_Private, work_type_Self_employed, work_type_children, Residence_type_Rural, Residence_type_Urban, smoking_status_Unknown, smoking_status_formerly_smoked, smoking_status_never_smoked, smoking_status_smokes]])
+    X_test = [[age, hypertension, heart_dis, avg_glucose_level, bmi, gender_Female, gender_Male, ever_married_No, ever_married_Yes, work_type_Govt_job, work_type_Never_worked, work_type_Private, work_type_Self_employed, work_type_children, Residence_type_Rural, Residence_type_Urban, smoking_status_Unknown, smoking_status_formerly_smoked, smoking_status_never_smoked, smoking_status_smokes]]
+    prediction = model.predict(X_test)
 
     if prediction == 0:
-        return "You don't have chances of getting brain stroke"
+        return ("You don't have chances of getting brain stroke", score)
     elif prediction == 1:
-        return "Sorry! You may have chances of getting brain stroke. Please consult a doctor."
+        return ("Sorry! You may have chances of getting brain stroke. Please consult a doctor.", score)
     else:
         return "error"
 
@@ -405,9 +407,9 @@ def brain_stroke_result(request):
     bmi = float(request.GET['age'])
     smoking_status = str(request.GET['smoke_st'])
 
-    result = get_brain_stroke_predictions(gender, age, hypertension, heart_dis, married, work_type, res_type, avg_glucose_level, bmi, smoking_status)
+    result, score = get_brain_stroke_predictions(gender, age, hypertension, heart_dis, married, work_type, res_type, avg_glucose_level, bmi, smoking_status)
     context = stroke_dict()
-    return render(request, 'stroke_pred.html', {'result': result}| context)
+    return render(request, 'stroke_pred.html', {'result': result,'score': score}| context)
 
 
 ## Liver Disease
