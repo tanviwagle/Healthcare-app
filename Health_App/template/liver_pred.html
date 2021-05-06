@@ -332,13 +332,12 @@ aria-hidden="true">
         type: 'line',
         label: 'With Liver Disease',
         data: {{ age_with_disease_count|safe }},
-        fill:true,
-        borderColor: 'rgb(255,69,0)'
+        borderColor: 'rgb(255,69,0)',
+        
         }, {
         type: 'line',
         label: 'Without Liver Disease',
         data: {{ age_without_disease_count|safe }},
-        fill:true,
         borderColor: 'rgb(25,25,112)'
     }],
     },
@@ -362,7 +361,10 @@ aria-hidden="true">
             font:{
               size: 18
             }
-          }
+          },
+          color:{
+            backgroundColor: ['rgb(255,69,0)', 'rgb(25,25,112)']
+          },
         },
         tooltip: {
           callbacks: {
