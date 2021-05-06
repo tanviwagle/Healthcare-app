@@ -83,7 +83,7 @@
 
   <!-- Jumbotron -->
   <div class="jumbotron jumbotron-fluid">
-    <div class="container">
+    <div class="container justify-content-center">
       <h2 style="color: darkslategray;">Want to predict if you have heart disease? <a style="color:blue" href = "#" data-toggle="modal" data-target="#pred_modal"><u>Click Here</u></a></h2>
     </div>
   </div>
@@ -93,16 +93,22 @@
   {% if result is not None %}
     {% if "don't" in result %}
       <div class='alert alert-success alert-dismissible text-center'>
-        <h4 class="alert-heading">Predictions</h4>
+        <h3 class="alert-heading"><b>Predictions</b></h3>
         <a href='#' class='close' data-dismiss='alert' aria-label='close'>&times;</a>
-        <strong>{{ result }}</strong>
+        <h4>{{ result }}</h4>
+        <h5 class="text-lg"><a href="heart_remedies"><u>View Symptoms and Preventions</u></a></h5>
+        <br>
+        <h5><b>** Note : Accuracy of predictions: {{ score }} %</b></h5>
       </div>    
     {% endif %}
     {% if "don't" not in result %}
       <div class='alert alert-danger alert-dismissible text-center'>
-        <h4 class="alert-heading">Predictions</h4>
+        <h3 class="alert-heading"><b>Predictions</b></h3>
         <a href='#' class='close' data-dismiss='alert' aria-label='close'>&times;</a>
-        <strong>{{ result }}</strong>
+        <h4>{{ result }}</h4>
+        <h5 class="text-lg"><a href="heart_remedies"><u>View Symptoms and Preventions</u></a></h5>
+        <br>
+        <h5><b>** Note : Accuracy of predictions: {{ score }} %</b></h5>
       </div>    
     {% endif %}
   {% endif %}
@@ -391,7 +397,7 @@
           position: 'right',
           labels:{
             font:{
-              size: 18
+              size: 20
             }
           }
           
@@ -518,12 +524,6 @@
       }
   },
     scales: {
-      xAxes: [{
-        beginAtZero: true,
-        ticks: {
-           autoSkip: false
-        }
-    }],
       x: {
         display: true,
         title: {

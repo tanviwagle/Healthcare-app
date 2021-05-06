@@ -126,7 +126,7 @@ def stroke_pred(request):
 ## Heart Disease
 def get_heart_disease_predictions(age, sex, chest_pain, rest_bp, chol, fast_bp, rest_ecg, max_hr, exercise_induced_angina, st_dep, slope, num_major_vessel, thal):
     import pickle
-    model = pickle.load(open("C:\\Users\\Wagle\\Desktop\\MCA\\SEM 6\\Internal Project\\Health_App\\Health_App\\Heart_Disease.sav", "rb"))
+    model, score = pickle.load(open("C:\\Users\\Wagle\\Desktop\\MCA\\SEM 6\\Internal Project\\Health_App\\Health_App\\Heart_Disease.sav", "rb"))
 
     # Sex
     if sex == 'Male':
@@ -256,13 +256,13 @@ def get_heart_disease_predictions(age, sex, chest_pain, rest_bp, chol, fast_bp, 
         thal_2 = 0
         thal_3 = 0
 
-
-    prediction = model.predict([[age, rest_bp, chol, max_hr, st_dep, sex_0, sex_1, chest_pain_type_0, chest_pain_type_1, chest_pain_type_2, chest_pain_type_3, fasting_blood_pressure_0, fasting_blood_pressure_1, rest_ecg_0, rest_ecg_1, rest_ecg_2, exercise_induced_angina_0, exercise_induced_angina_1, slope_0, slope_1, slope_2, num_major_vessels_0, num_major_vessels_1, num_major_vessels_2, num_major_vessels_3, num_major_vessels_4, thal_0, thal_1, thal_2, thal_3]])
+    X_test = [[age, rest_bp, chol, max_hr, st_dep, sex_0, sex_1, chest_pain_type_0, chest_pain_type_1, chest_pain_type_2, chest_pain_type_3, fasting_blood_pressure_0, fasting_blood_pressure_1, rest_ecg_0, rest_ecg_1, rest_ecg_2, exercise_induced_angina_0, exercise_induced_angina_1, slope_0, slope_1, slope_2, num_major_vessels_0, num_major_vessels_1, num_major_vessels_2, num_major_vessels_3, num_major_vessels_4, thal_0, thal_1, thal_2, thal_3]]
+    prediction = model.predict(X_test)
 
     if prediction == 0:
-        return "You don't have heart disease"
+        return ("You don't have heart disease", score)
     elif prediction == 1:
-        return "Sorry! You may have heart disease. Please consult a doctor."
+        return ("Sorry! You may have heart disease. Please consult a doctor.", score)
     else:
         return "error"
 
@@ -282,9 +282,9 @@ def heart_disease_result(request):
     num_major_vessel=int(request.GET['n_majorVessel'])
     thal=str(request.GET['thal'])
 
-    result = get_heart_disease_predictions(age, sex, chest_pain, rest_bp, chol, fast_bp, rest_ecg, max_hr, exercise_induced_angina, st_dep, slope, num_major_vessel, thal)
+    result, score = get_heart_disease_predictions(age, sex, chest_pain, rest_bp, chol, fast_bp, rest_ecg, max_hr, exercise_induced_angina, st_dep, slope, num_major_vessel, thal)
     context = heart_dict()
-    return render(request, 'heart_pred.html', {'result': result} | context)
+    return render(request, 'heart_pred.html', {'result': result, 'score': score} | context)
 
 ## Brain Stroke
 
@@ -414,7 +414,7 @@ def brain_stroke_result(request):
 def get_liver_disease_predictions(age, gender, total_bil, direct_bil, alkaline_phos, alamine_amino, aspartate_amino, total_pro, albumin, albumin_ratio):
     
     import pickle
-    model = pickle.load(open("C:\\Users\\Wagle\\Desktop\\MCA\\SEM 6\\Internal Project\\Health_App\\Health_App\\Liver_Disease.sav", "rb"))
+    model, score = pickle.load(open("C:\\Users\\Wagle\\Desktop\\MCA\\SEM 6\\Internal Project\\Health_App\\Health_App\\Liver_Disease.sav", "rb"))
 
     ## Gender
     if gender == 'Male':
@@ -424,12 +424,13 @@ def get_liver_disease_predictions(age, gender, total_bil, direct_bil, alkaline_p
         Gender_Male = 0
         Gender_Female = 1
 
-    prediction = model.predict([[age, total_bil, direct_bil, alkaline_phos, alamine_amino, aspartate_amino, total_pro, albumin, albumin_ratio, Gender_Female, Gender_Male]])
+    X_test = [[age, total_bil, direct_bil, alkaline_phos, alamine_amino, aspartate_amino, total_pro, albumin, albumin_ratio, Gender_Female, Gender_Male]]
+    prediction = model.predict(X_test)
 
     if prediction == 2:
-        return "You don't have liver disease"
+        return ("You don't have liver disease", score)
     elif prediction == 1:
-        return "Sorry! You may have liver disease. Please consult a doctor."
+        return ("Sorry! You may have liver disease. Please consult a doctor.", score)
     else:
         return "error"
 
@@ -445,9 +446,9 @@ def liver_disease_result(request):
     albumin = float(request.GET['albumin'])
     albumin_ratio = float(request.GET['albumin_ratio'])
 
-    result = get_liver_disease_predictions(age, gender, total_bil, direct_bil, alkaline_phos, alamine_amino, aspartate_amino, total_pro, albumin, albumin_ratio)
+    result, score = get_liver_disease_predictions(age, gender, total_bil, direct_bil, alkaline_phos, alamine_amino, aspartate_amino, total_pro, albumin, albumin_ratio)
     context = liver_dict()
-    return render(request, 'liver_pred.html', {'result': result} |context)
+    return render(request, 'liver_pred.html', {'result': result, 'score': score} |context)
 
 
 def heart_remedies(request):

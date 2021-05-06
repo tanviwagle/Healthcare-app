@@ -77,8 +77,8 @@
 
 
   <!-- Jumbotron -->
-  <div class="jumbotron">
-    <div class="container">
+  <div class="jumbotron jumbotron-fluid">
+    <div class="container justify-content-center">
       <h2 style="color: darkslategray;">Want to predict if you have liver disease? <a style="color:blue" href = "#" data-toggle="modal" data-target="#pred_modal"><u>Click Here</u></a></h2>
     </div>
   </div>
@@ -88,37 +88,51 @@
     {% if result is not None %}
       {% if "don't" in result %}
         <div class='alert alert-success alert-dismissible text-center'>
-          <h4 class="alert-heading">Predictions</h4>
-          <a href='#' class='close' data-dismiss='alert' aria-label='close'>&times;</a>
-          <strong>{{ result }}</strong>
+          <h3 class="alert-heading"><b>Predictions</b></h3>
+        <a href='#' class='close' data-dismiss='alert' aria-label='close'>&times;</a>
+        <h4>{{ result }}</h4>
+        <h5 class="text-lg"><a href="liver_remedies"><u>View Symptoms and Preventions</u></a></h5>
+        <br>
+        <h5><b>** Note : Accuracy of predictions: {{ score }} %</b></h5>
         </div>    
       {% endif %}
       {% if "don't" not in result %}
         <div class='alert alert-danger alert-dismissible text-center'>
-          <h4 class="alert-heading">Predictions</h4>
-          <a href='#' class='close' data-dismiss='alert' aria-label='close'>&times;</a>
-          <strong>{{ result }}</strong>
+          <h3 class="alert-heading"><b>Predictions</b></h3>
+        <a href='#' class='close' data-dismiss='alert' aria-label='close'>&times;</a>
+        <h4>{{ result }}</h4>
+        <h5 class="text-lg"><a href="liver_remedies"><u>View Symptoms and Preventions</u></a></h5>
+        <br>
+        <h5><b>** Note : Accuracy of predictions: {{ score }} %</b></h5>
         </div>    
       {% endif %}
     {% endif %}
   </div>
 
-
-  <div class="container">
-    <abbr title="Statistical Plots"><h3 style="color: black;"><b>Stats: </b></h3></abbr>
-    <hr>
+  <div class="container-fluid justify-content-center">
     <div class="row justify-content-center">
-      <div class="col-md-7">
-        <canvas id = "chart1"></canvas>
+      <div class="col-md-10">
+        <abbr title="Statistical Plots"><h3 style="color: black;"><b>Stats: </b></h3></abbr>
+        <hr>
+      </div>
+      <div class="col-md-10">
+        <div class="row justify-content-center">
+          <div class="col-md-9">
+            <canvas id = "chart1"></canvas>
+          </div>
+        </div>
+        <br>
+      </div>
+      <div class="col-md-10">
+        <div class="row justify-content-center">
+          <div class="col-md-7">
+            <canvas id = "chart2"></canvas>
+          </div> 
+        </div>
       </div>
     </div>
-    <br>
-    <div class="row justify-content-center">
-      <div class="col-md-6">
-        <canvas id = "chart2"></canvas>
-      </div> 
-    </div>
   </div>
+
 
 <!-- Stroke Disease Modal -->
 <div class="modal fade bottom" id="pred_modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
@@ -142,7 +156,7 @@ aria-hidden="true">
           <table cellpadding = '10'>
             <tr>
               <td>Age:</td>
-              <td><input type="number" name="age" placeholder="Enter Age" required></td>
+              <td><input type="number" name="age" placeholder="Enter Age" required autofocus></td>
             </tr>
             <tr>
               <td>Gender:</td>
@@ -292,6 +306,24 @@ aria-hidden="true">
 
     var ctx = document.getElementById('chart1').getContext('2d');
     var ctx1 = document.getElementById('chart2').getContext('2d');
+    const footer = (tooltipItems) => {
+      let sum = 0;
+    
+      tooltipItems.forEach(function(tooltipItem) {
+        sum += tooltipItem.parsed.y;
+      });
+      return 'Total people: ' + sum;
+    };
+
+    const footer1 = (tooltipItems) => {
+      let sum = 0;
+    
+      tooltipItems.forEach(function(tooltipItem) {
+        sum += tooltipItem.parsed;
+      });
+      return 'Total people: ' + sum;
+    };
+
     var chart = new Chart(ctx, {
     // data
     data: {
@@ -311,6 +343,10 @@ aria-hidden="true">
     }],
     },
     options: {
+      interaction: {
+        intersect: false,
+        mode: 'index',
+      },
       plugins: {
         title: {
             display: true,
@@ -322,15 +358,71 @@ aria-hidden="true">
         },
         legend:{
           position: 'bottom',
+          labels:{
+            font:{
+              size: 18
+            }
+          }
+        },
+        tooltip: {
+          callbacks: {
+            footer: footer,
+          },
+          bodyFont:{
+            size: 18,
+            weight: 'bold',
+          },
+          titleFont:{
+            size: 18,
+            weight: 'bold',
+          },
+          footerFont:{
+            size: 18,
+            weight: 'bold',
+          },
+          
+          displayColors: true,
         }
+    },
+    scales: {
+      x: {
+        display: true,
+        title: {
+          display: true,
+          text: 'Age Group',
+          color: '#000',
+          font: {
+            family: 'Comic Sans MS',
+            size: 20,
+            weight: 'bold',
+            lineHeight: 1.2,
+          },
+          padding: {top: 0, left: 0, right: 0, bottom: 20}
+        }
+      },
+      y: {
+        display: true,
+        title: {
+          display: true,
+          text: 'Count',
+          color: '#000',
+          font: {
+            family: 'Comic Sans MS',
+            size: 20,
+            style: 'bold',
+            lineHeight: 1.2
+          },
+          padding: {top: 30, left: 0, right: 0, bottom: 0}
+        }
+      }
     }
-    }
+  }
   });
 
   var chart1 = new Chart(ctx1, {
     // data
     data: {
-      labels: {{ gender_names|safe }},
+      labels: {{ gender_names|safe}},
       datasets: [{
         type: 'pie',
         label: 'With Liver Disease',
@@ -347,7 +439,26 @@ aria-hidden="true">
     ],
     },
     options: {
+      interaction: {
+        intersect: false,
+        mode: 'index',
+      },
+      animation:{
+        animateScale: true
+      },
       plugins: {
+          
+        tooltip:{
+          bodyFont:{
+            size: 20,
+            weight: 'bold',
+          },
+          callbacks: {
+            footer: footer1,
+          },
+          
+          displayColors: true,
+        },
         title: {
             display: true,
             text: 'Gender of people with/without Liver Disease',
@@ -358,6 +469,7 @@ aria-hidden="true">
         },
         legend:{
           display: false,
+          position: "right",
         }
     }
     }
