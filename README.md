@@ -16,4 +16,5 @@ Healthcare app is an intuitive, user‑friendly website interface integrated wit
 - Bootstrap 4
 - JavaScript 
 
+### Screenshots:** [link](https://github.com/tanviwagle/Healthcare-app/blob/3134179d3f47a634b3565fd16a224a8f03ffedad/Healthcare%20app%20report%20screenshots.pdf)
 ### **Entire project report :** [link](https://github.com/tanviwagle/Healthcare-app/blob/6ff24ec90ab4c7cb60f409526854000118357ae8/Healthcare%20app%20report.pdf)
