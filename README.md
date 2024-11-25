@@ -3,7 +3,10 @@
 Healthcare app is an intuitive, user‑friendly website interface integrated with advanced machine learning algorithms. 
 
 - Performed comprehensive data analysis, manipulation and visualisation on datasets for heart disease, liver disease and brain stroke, utilising techniques such as Logistic Regression and Support Vector Machines (SVM). 
-- Achieved high prediction accuracies: 93.4% for heart disease, 84.0% for liver disease and 96.9% for brain stroke, validating the effectiveness of the models. 
+- **Prediction accuracies:**
+  - 93.4% for heart disease
+  - 84.0% for liver disease
+  - 96.9% for brain stroke 
 
 ### **Technical Stack:**
 - Python (Pandas, NumPy, Seaborn, Scikit‑learn, Pickle, Matplotlib)
